@@ -100,6 +100,7 @@ function direcionamento(jsonData) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+
   
     })
     .catch((error) => {
