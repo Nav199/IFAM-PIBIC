@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/Database.php';
+require_once __DIR__.'/../Database.php';
 class Clients extends Database{
     
     private $public; //publico alco
@@ -19,14 +19,13 @@ class Clients extends Database{
 
     public function create_client(){
         try {
-            $stm = $this->connection->prepare("INSERT INTO client(publico, comportamento, area,id_empre,id_usuario) VALUES (:public,:behavior,:area,:id_empre)");
+            $stm = $this->connection->prepare("INSERT INTO client (publico, comportamento, area, id_empre, id_usuario) VALUES (:publico, :comportamento, :area, :id_empre, :id_usuario)");
 
-            // Vincular os parâmetros com os valores dos atributos
             $stm->bindValue(":publico", $this->public);
-            $stm->bindValue(":behavior", $this->behavior);
-            $stm->bindValue(":area,", $this->area);
-            $stm->bindValue(":id_empre,", $this->id_empre);
-            $stm->bindValue(":id_usuario,", $this->id_usuario);
+            $stm->bindValue(":comportamento", $this->behavior);
+            $stm->bindValue(":area", $this->area);
+            $stm->bindValue(":id_empre", $this->id_empre);
+            $stm->bindValue(":id_usuario", $this->id_usuario);
             $stm->execute();
 
             //id do cliente

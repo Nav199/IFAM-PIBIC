@@ -1,7 +1,8 @@
 <?php
-
 require_once __DIR__ . '/../model/UserModel.php';
+require_once __DIR__ .'/../model/Database.php';
 
+ob_start();
 class CadastroController {
     public function cadastrarUsuario() {
         // Recebe os dados do formulário
@@ -9,6 +10,7 @@ class CadastroController {
         $email = $_POST['email'];
         $cpf = $_POST['cpf'];
         $senha = $_POST['senha'];
+
 
         // Validar o formato do email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -26,16 +28,17 @@ class CadastroController {
             exit; // Parar a execução caso o CPF seja inválido
         }
 
-        // Resto da lógica...
-
         // Criação do usuário
         $userModel = new User($nome, $email, $cpf, $senha);
-        $userModel->createUser();
+        // $userModel->createUser(); // Estava gerando duplicidade de registro no banco 
         $lastInsertedId =  $userModel->getLastInsertedId();
 
-        echo "<script language='javascript'>window.alert('Sucesso ao cadastrar Socio');</script>";
+
+        echo "<script language='javascript'>window.alert('Sucesso ao cadastrar Usuario');</script>";
         // Redireciona para a página executivo.php com o ID do usuário como parâmetro na URL
-        echo "<script language='javascript'>window.location='socio.php?id=" . $lastInsertedId . "';</script>";
+        header("Location: http://localhost/API/telas/socio.php?id=" . $lastInsertedId);
+        ob_end_flush();
         exit();
+
     }
 }

@@ -1,60 +1,67 @@
-<?php session_start();?>
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Login</title>
+  <!-- Inclua os links para os arquivos CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
-    <main id="login-page">
-        <!-- Login -->
-        <div id="login-register" class="container ">
-            <div class="row">
-                <div class="col-6">
-                    <img class="img-fluid"
-                        src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=1200&s=1"
-                        alt="">
-                </div>
-                <div class="col-6 d-flex flex-column justify-content-center gap-3 px-5" id="login-form">
-                    <h2 class="fw-bold fs-3 title">Digite seu email e sua senha</h2>
-                    <p class="fw-semibold fs-4 mb-0 title">Faça seu login</p>
-                    <form action="verificar.php" method="POST">
-                        <div class="mb-3">
-                            <label for="email-input" class="form-label d-none">Email</label>
-                            <input type="email" class="form-control" id="email-input" placeholder="Email" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password-input" class="form-label d-none">Senha</label>
-                            <input type="password" class="form-control" id="password-input" placeholder="Senha" name="senha">
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center fs-5 mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="continue-connected-check">
-                                <label class="form-check-label text-black-50 fw-semibold" for="continue-connected-check">
-                                    Mantenha-me conectado
-                                </label>
-                            </div>
-                            <a class="primary-link recover" href="#">Recuperar senha</a>
-                        </div>
-                        <button class="btn btn-primary form-button d-block w-100 fs-4" type="submit" name="entrar" href="/executivo//socio.php">Entrar</button>
-                    </form>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+          </div>
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Entrar</button>
+        </form>
+        <hr>
+        <p>Esqueceu sua senha? <a href="#">Recuperar senha</a></p>
+        <p>Ainda não tem uma conta? <a href="#">Criar uma conta</a></p>
+      </div>
+    </div>
+  </div>
+  <!-- Inclua os scripts do Bootstrap no final do corpo do documento -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function submitForm() {
+      // Coletar dados do formulário
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
 
-                    <div class="text-center">
-                        <p class="text-black-50 fs-5">Ainda não tem uma conta? <a class="link link-color" id="create-new-account" href="/telas/cadastro.php">Clique aqui!</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
- 
+      // Criar um objeto JSON
+      var formData = {
+        email: email,
+        password: password
+      };
+
+      // Enviar dados para o script PHP via Fetch API
+      fetch("verifica.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // Exibir a resposta do servidor
+        console.log("Dados enviados")
+      })
+      .catch(error => {
+        console.error("Erro:", error);
+      });
+    }
+  </script>
 </body>
-<script src="js/bootstrap.bundle.min.js"></script>
-
 </html>

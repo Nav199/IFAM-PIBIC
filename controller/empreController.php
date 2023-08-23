@@ -14,13 +14,12 @@ class EmpreendimentoController {
     $resu = isset($_POST['Recursos']) ? $_POST['Recursos'] : '';
     $forma = isset($_POST['formaJuridica']) ? $_POST['formaJuridica'] : '';
     $enqua = isset($_POST['enquadramento']) ? $_POST['enquadramento'] : '';
-    $id_socio = isset($_POST[' idSocio']) ? $_POST[' idSocio'] : '';
     $id_usuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : '';
     
     $empre = null;
     if (isset($_POST['setor'])) {
         foreach ($_POST['setor'] as $setor) {
-            $empre = new Empreendimento($nome_empresa, $missao, $visao, $valores, $setor, $resu, $id_socio, $id_usuario);
+            $empre = new Empreendimento($nome_empresa, $missao, $visao, $valores, $setor, $resu, $id_usuario);
             $empre->create_empre();
         }
     }

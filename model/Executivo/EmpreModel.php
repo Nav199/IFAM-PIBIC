@@ -7,10 +7,9 @@ class Empreendimento extends Database {
     private $values;        // valores da empresa
     private $sector;        // setor
     private $source;        // fonte de recursos
-    private $id_socio;
     private $id_usuario;
 
-    public function __construct($name, $mission, $vision, $values, $sector,$source ,$id_socio,$id_usuario) {
+    public function __construct($name, $mission, $vision, $values, $sector,$source ,$id_usuario) {
         parent::__construct();
         $this->name = $name;
         $this->mission = $mission;
@@ -18,13 +17,12 @@ class Empreendimento extends Database {
         $this->values = $values;
         $this->sector = $sector;
         $this->source = $source;
-        $this->id_socio = $id_socio;
         $this->id_usuario = $id_usuario;
     }
   
     public function create_empre(){
         try {
-            $stm = $this->connection->prepare("INSERT INTO empreendimento(nome, setor, missao, visao, valores, fonteRecursos,id_usuario,id_socio) VALUES (:nome, :setor, :missao, :visao, :valores, :fonteRecursos,:id_usuario,:id_socio)");
+            $stm = $this->connection->prepare("INSERT INTO empreendimento(Nome, Setor, Missao, Visao, Valores, FonteRecursos,id_usuario) VALUES (:nome, :setor, :missao, :visao, :valores, :fonteRecursos,:id_usuario)");
 
             // Vincular os parâmetros com os valores dos atributos
             $stm->bindValue(":nome", $this->name);
@@ -34,12 +32,11 @@ class Empreendimento extends Database {
             $stm->bindValue(":valores", $this->values);
             $stm->bindValue(":fonteRecursos", $this->source);
             $stm->bindValue(":id_usuario", $this->id_usuario);
-            $stm->bindValue(":id_socio", $this->id_socio);
             $stm->execute();
-
 
             //id do Empreendimento
             $lastInsertId_empre = $this->connection->lastInsertId();
+            
             return $lastInsertId_empre;
         } catch (PDOException $e) {
             echo $e->getMessage();

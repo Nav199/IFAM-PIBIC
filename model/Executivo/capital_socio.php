@@ -1,70 +1,39 @@
 <?php
 require_once __DIR__.'/../Database.php';
-// classe capital do sócio
-
-class Capital extends Database{
+class Capital extends Database {
     private $idSocio; 
     private $valor;
-    private $total;
-    private $cont = 0;
-    private $porcentagem;
-  
-    public function __construct($idSocio,$valor,$cont) {
-        parent:: __construct();
+    private $total = 0; // Inicialize o total com 0
+    
+    public function __construct($idSocio, $valor) {
+        parent::__construct();
         $this->idSocio = $idSocio;
         $this->valor = $valor;
-        $this->cont = $cont;
-    }
-    public function getValor(){
-        return $this->valor;
     }
 
-    public function setValor($valor){
-        $this->valor = $valor;
-    }
+    // Outros métodos não apresentam alterações
 
-    public function getid_socio(){
-        return $this->idSocio;
-    }
-
-    public function setID($idSocio){
-        $this->idSocio = $idSocio;
-    }
-    public function settoal( $total){
-        $this-> $total =  $total;
-    }
-  
-    public function porcentagem() {
-        if ($this->cont > 1) {
-            $this->total = $this->valor * $this->cont;
-            $this->porcentagem = ($this->valor / $this->total) * 100;
-        } else if ($this->cont == 0) {
-            $this->total = $this->valor;
-            $this->porcentagem = 100;
-        }
-        return $this->porcentagem;
+    public function Total() {
+        $this->total += $this->valor;
     }
     
-    public function create_capital()
-    {
+    public function create_capital() {
         try {
+            // Insira o cálculo do total antes da inserção do valor do capital no banco de dados
+            $this->Total();
+            
             // Insere o valor do capital no banco de dados
-            $stm = $this->connection->prepare("INSERT INTO capital ( Valor,Participacao,ID_socios) VALUES (:valor,:Participacao,:idSocio)");
+            $stm = $this->connection->prepare("INSERT INTO capital (Valor, ID_socios, total) VALUES (:valor, :idSocio, :total)");
             $stm->bindValue(":valor", $this->valor);
-            $stm->bindValue(":Participacao",$this->porcentagem());
             $stm->bindValue(":idSocio", $this->idSocio);
+            $stm->bindValue(":total", $this->total);
             $stm->execute();
-    
-            //id do capital social
-           $lastInsertId_capital = $this->connection->lastInsertId();
-           return $lastInsertId_capital;
 
+            //id do capital social
+            $lastInsertId_capital = $this->connection->lastInsertId();
+            return $lastInsertId_capital;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-    }
-    public function getlastInsertId_capital()
-    {
-        return $this->create_capital();
     }
 }

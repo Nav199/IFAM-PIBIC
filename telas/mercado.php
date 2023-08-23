@@ -1,171 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Análise de Mercado</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    
-    .container {
-      background-color: #ffffff;
-      margin-top: 50px;
-      padding: 30px;
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-    }
-    
-    h1 {
-      color: #007bff;
-      text-align: center;
-    }
-    
-    h2 {
-      color: #343a40;
-      margin-top: 30px;
-    }
-    
-    table {
-      margin-top: 20px;
-    }
-    
-    th {
-      background-color: #343a40;
-      color: #ffffff;
-    }
-    
-    .remove-field {
-      color: #dc3545;
-      cursor: pointer;
-    }
-    
-    #enviar {
-      margin-top: 30px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela com campos dinâmicos</title>
+  <!-- Incluindo os estilos do Bootstrap -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Análise de Mercado</h1>
-    
-    <form>
-      <h2>Estudo de clientes</h2>
-      <div class="form-group">
-        <label for="publicoAlvo">Público alvo:</label>
-        <textarea class="form-control" id="publicoAlvo" rows="3" name="publicoAlvo" placeholder="Digite o público-alvo"></textarea>
+  <form action="" method="post">
+    <div class="container mt-4">
+    <div class="col-md-4 mb-3">
+          <label for="idUsuario">ID do Usuário</label>
+          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?> readonly>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="idUsuario">ID do Empreendimento</label>
+          <input type="text" class="form-control" id="idEmpre" name="idEmpre" value=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?> readonly>
+        </div>
+      <div class="mb-3">
+        <label for="publico" class="form-label">Público Alvo</label>
+        <input type="text" class="form-control" id="publico" name="publico" placeholder="Público Alvo">
+      </div>
+      <div class="mb-3">
+        <label for="comportamento" class="form-label">Comportamento</label>
+        <input type="text" class="form-control" id="comportamento" name="comportamento" placeholder="Comportamento">
+      </div>
+      <div class="mb-3">
+        <label for="area" class="form-label">Área de Abrangência</label>
+        <input type="text" class="form-control" id="area" name="area" placeholder="Área de Abrangência">
       </div>
 
-      <div class="form-group">
-        <label for="comportamentoClientes">Comportamento dos clientes:</label>
-        <textarea class="form-control" id="comportamentoClientes" rows="3" name="comportamentoClientes" placeholder="Digite o comportamento dos clientes"></textarea>
+      <div class="container mt-4">
+        <h3>Fornecedores</h3>
+
+        <button class="btn btn-primary" type="button" onclick="adicionarFornecedor()">Adicionar fornecedor</button>
+        <div id="fornecedoresContainer">
+          <!-- Campos de fornecedores serão adicionados aqui -->
+        </div>
+
       </div>
 
-      <div class="form-group">
-        <label for="areaAbrangencia">Área de abrangência:</label>
-        <textarea class="form-control" id="areaAbrangencia" rows="3" name="areaAbrangencia" placeholder="Digite a área de abrangência"></textarea>
+      <div class="container mt-4">
+        <h3>Concorrentes</h3>
+        <button class="btn btn-primary" type="button" onclick="adicionarConcorrente()">Adicionar concorrente</button>
+        <div id="concorrentesContainer">
+          <!-- Campos de concorrentes serão adicionados aqui -->
+        </div>
       </div>
-      
-      <h2>Estudo de Concorrentes</h2>
-      <button id="addConcorrente" class="btn btn-primary">Adicionar Concorrente</button>
-      
-      <table id="concorrentesTable" class="table">
-        <thead>
-          <tr>
-            <th>Qualidade</th>
-            <th>Preço</th>
-            <th>Condições de pagamento</th>
-            <th>Localização</th>
-            <th>Atendimento</th>
-            <th>Serviço aos clientes</th>
-            <th>Garantias oferecidas</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" class="form-control" name="qualidade[]" /></td>
-            <td><input type="text" class="form-control" name="preco[]" /></td>
-            <td><input type="text" class="form-control" name="condicoesPagamento[]" /></td>
-            <td><input type="text" class="form-control" name="localizacao[]" /></td>
-            <td><input type="text" class="form-control" name="atendimento[]" /></td>
-            <td><input type="text" class="form-control" name="servicoClientes[]" /></td>
-            <td><input type="text" class="form-control" name="garantiasOferecidas[]" /></td>
-            <td><span class="remove-field" onclick="removeTableRow(this)">Remover</span></td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <h2>Estudo dos fornecedores</h2>
-      <button id="addFornecedor" class="btn btn-primary">Adicionar Fornecedor</button>
-      
-      <table id="fornecedoresTable" class="table">
-        <thead>
-          <tr>
-            <th>Descrição dos produtos</th>
-            <th>Nome do Fornecedor</th>
-            <th>Preço</th>
-            <th>Condições de pagamento</th>
-            <th>Prazo de entrega</th>
-            <th>Localização</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" class="form-control" name="descricaoProdutos[]" /></td>
-            <td><input type="text" class="form-control" name="nomeFornecedor[]" /></td>
-            <td><input type="text" class="form-control" name="precoFornecedor[]" /></td>
-            <td><input type="text" class="form-control" name="condicoesPagamentoFornecedor[]" /></td>
-            <td><input type="text" class="form-control" name="prazoEntrega[]" /></td>
-            <td><input type="text" class="form-control" name="localizacaoFornecedor[]" /></td>
-            <td><span class="remove-field" onclick="removeTableRow(this)">Remover</span></td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <button id="enviar" class="btn btn-primary" name="Enviar_Mercado">Enviar</button>
-    </form>
-  </div>
+
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+
+  <!-- Incluindo o script do Bootstrap -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
   <script>
-    // Função para adicionar nova linha na tabela de concorrentes
-    $("#addConcorrente").click(function() {
-      var newRow = '<tr>' +
-        '<td><input type="text" class="form-control" name="qualidade[]" /></td>' +
-        '<td><input type="text" class="form-control" name="preco[]" /></td>' +
-        '<td><input type="text" class="form-control" name="condicoesPagamento[]" /></td>' +
-        '<td><input type="text" class="form-control" name="localizacao[]" /></td>' +
-        '<td><input type="text" class="form-control" name="atendimento[]" /></td>' +
-        '<td><input type="text" class="form-control" name="servicoClientes[]" /></td>' +
-        '<td><input type="text" class="form-control" name="garantiasOferecidas[]" /></td>' +
-        '<td><span class="remove-field" onclick="removeTableRow(this)">Remover</span></td>' +
-        '</tr>';
+    let contadorFornecedores = 0;
+    let contadorConcorrentes = 0;
 
-      $("#concorrentesTable tbody").append(newRow);
-    });
+    function adicionarFornecedor() {
+      const fornecedoresContainer = document.getElementById('fornecedoresContainer');
 
-    // Função para adicionar nova linha na tabela de fornecedores
-    $("#addFornecedor").click(function() {
-      var newRow = '<tr>' +
-        '<td><input type="text" class="form-control" name="descricaoProdutos[]" /></td>' +
-        '<td><input type="text" class="form-control" name="nomeFornecedor[]" /></td>' +
-        '<td><input type="text" class="form-control" name="precoFornecedor[]" /></td>' +
-        '<td><input type="text" class="form-control" name="condicoesPagamentoFornecedor[]" /></td>' +
-        '<td><input type="text" class="form-control" name="prazoEntrega[]" /></td>' +
-        '<td><input type="text" class="form-control" name="localizacaoFornecedor[]" /></td>' +
-        '<td><span class="remove-field" onclick="removeTableRow(this)">Remover</span></td>' +
-        '</tr>';
+      const divFornecedor = document.createElement('div');
+      divFornecedor.className = 'mb-3';
+      divFornecedor.innerHTML = `
+        <label for="descricaoFornecedor${contadorFornecedores}" class="form-label">Descrição</label>
+        <input type="text" class="form-control" id="descricaoFornecedor${contadorFornecedores}" name="descricaoFornecedor${contadorFornecedores}" placeholder="Descrição">
+        <label for="nomeFornecedor${contadorFornecedores}" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nomeFornecedor${contadorFornecedores}" name="nomeFornecedor${contadorFornecedores}" placeholder="Nome">
+        <label for="precoFornecedor${contadorFornecedores}" class="form-label">Preço</label>
+        <input type="number" class="form-control" id="precoFornecedor${contadorFornecedores}" name="precoFornecedor${contadorFornecedores}" step="0.01" min="0" placeholder="Preço">
+        <label for="pagamentoFornecedor${contadorFornecedores}" class="form-label">Pagamento</label>
+        <input type="text" class="form-control" id="pagamentoFornecedor${contadorFornecedores}" name="pagamentoFornecedor${contadorFornecedores}" placeholder="Pagamento">
+        <label for="prazoEntregaFornecedor${contadorFornecedores}" class="form-label">Prazo de Entrega</label>
+        <input type="text" class="form-control" id="prazoEntregaFornecedor${contadorFornecedores}" name="prazoEntregaFornecedor${contadorFornecedores}" placeholder="Prazo de Entrega">
+        <label for="localizacaoFornecedor${contadorFornecedores}" class="form-label">Localização</label>
+        <input type="text" class="form-control" id="localizacaoFornecedor${contadorFornecedores}" name="localizacaoFornecedor${contadorFornecedores}" placeholder="Localização">
+      `;
 
-      $("#fornecedoresTable tbody").append(newRow);
-    });
+      fornecedoresContainer.appendChild(divFornecedor);
+      contadorFornecedores++;
+    }
 
-    // Função para remover uma linha da tabela
-    function removeTableRow(element) {
-      $(element).closest("tr").remove();
+    function adicionarConcorrente() {
+      const concorrentesContainer = document.getElementById('concorrentesContainer');
+
+      const divConcorrente = document.createElement('div');
+      divConcorrente.className = 'mb-3';
+      divConcorrente.innerHTML = `
+        <label for="qualidadeConcorrente${contadorConcorrentes}" class="form-label">Qualidade</label>
+        <input type="text" class="form-control" id="qualidadeConcorrente${contadorConcorrentes}" name="qualidadeConcorrente${contadorConcorrentes}" placeholder="Qualidade">
+        <label for="nomeConcorrente${contadorConcorrentes}" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nomeConcorrente${contadorConcorrentes}" name="nomeConcorrente${contadorConcorrentes}" placeholder="Nome">
+        <label for="precoConcorrente${contadorConcorrentes}" class="form-label">Preço</label>
+        <input type="number" class="form-control" id="precoConcorrente${contadorConcorrentes}" name="precoConcorrente${contadorConcorrentes}" step="0.01" min="0" placeholder="Preço">
+        <label for="pagamentoConcorrente${contadorConcorrentes}" class="form-label">Pagamento</label>
+        <input type="text" class="form-control" id="pagamentoConcorrente${contadorConcorrentes}" name="pagamentoConcorrente${contadorConcorrentes}" placeholder="Pagamento">
+        <label for="servicoConcorrente${contadorConcorrentes}" class="form-label">Serviço ao Cliente</label>
+        <input type="text" class="form-control" id="servicoConcorrente${contadorConcorrentes}" name="servicoConcorrente${contadorConcorrentes}" placeholder="Serviço ao Cliente">
+        <label for="garantiasConcorrente${contadorConcorrentes}" class="form-label">Garantias Oferecidas</label>
+        <input type="text" class="form-control" id="garantiasConcorrente${contadorConcorrentes}" name="garantiasConcorrente${contadorConcorrentes}" placeholder="Garantias Oferecidas">
+        <label for="localizacaoConcorrente${contadorConcorrentes}" class="form-label">Localização</label>
+        <input type="text" class="form-control" id="localizacaoConcorrente${contadorConcorrentes}" name="localizacaoConcorrente${contadorConcorrentes}" placeholder="Localização">
+      `;
+
+      concorrentesContainer.appendChild(divConcorrente);
+      contadorConcorrentes++;
     }
   </script>
 </body>

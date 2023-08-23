@@ -19,6 +19,7 @@ class User extends Database
     public function createUSER()
     {
         try {
+            // O nome da tabela no banco de dados é usuarios(no plural), mas aqui no código estava no singular
             $stm = $this->connection->prepare("INSERT INTO usuario (Nome, Email, CPF, Senha) VALUES (:nome, :email, :cpf, :senha)");
             $stm->bindValue(":nome", $this->nome);
             $stm->bindValue(":email", $this->email);
