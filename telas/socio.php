@@ -1,62 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="PT-br">
+
 <head>
-  <title>Cadastro de sócio</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulários</title>
+
+  <!-- Add Bootstrap CSS link here -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      /* Cor de fundo */
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      /* Cor do botão "Adicionar" */
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      /* Cor quando hover sobre o botão "Adicionar" */
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      /* Cor do botão "Enviar" */
+      border-color: #28a745;
+    }
+
+    .btn-success:hover {
+      background-color: #1e7e34;
+      /* Cor quando hover sobre o botão "Enviar" */
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    .mb-3 {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container mt-5">
-    <h2 class="mb-4">Cadastro de sócio</h2>
-    <form action="index.php" method="POST" onsubmit="calcularCapitalSocial()">
-
-      <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="idUsuario">ID do Usuário</label>
-          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?> readonly>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="nomeSocio">Nome</label>
-          <input type="text" class="form-control" id="nomeSocio" name="nomeSocio[]" required>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="telefoneSocio">Telefone</label>
-          <input type="text" class="form-control" id="telefoneSocio" name="telefoneSocio[]" required>
-        </div>
+  <div class="container mt-4">
+    <form id="mainForm">
+    <label for="idUsuario">ID do Usuário</label>
+<input type="text" class="form-control" id="idUsuario" name="idUsuario" value=<?php echo isset($_GET['id']) ?
+  $_GET['id'] : '' ; ?> readonly>
+      <br>
+      <button type="button" class="btn btn-primary" onclick="AdicionarFormulario()">Adicionar</button>
+      <br>
+    <button type="button" class="btn btn-success" onclick="Enviar()">Enviar</button>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" placeholder="Digite seu nome">
       </div>
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="ruaSocio">Rua</label>
-          <input type="text" class="form-control" id="ruaSocio" name="ruaSocio[]" required>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="cidadeSocio">Cidade</label>
-          <input type="text" class="form-control" id="cidadeSocio" name="cidadeSocio[]" required>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="estadoSocio">Estado</label>
-          <input type="text" class="form-control" id="estadoSocio" name="estadoSocio[]" required>
-        </div>
+      <div class="mb-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="number" class="form-control" name="telefone" placeholder="Digite seu telefone">
       </div>
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="capitalSocio">Capital do Sócio ($)</label>
-          <input type="number" class="form-control" id="capitalSocio" name="capitalSocio" step="0.01" min="0" required>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="curriculoSocio">Currículo</label>
-          <input type="text" class="form-control" id="curriculoSocio" name="curriculoSocio" required>
-        </div>
+      <div class="mb-3">
+        <label for="curriculo" class="form-label">Currículo</label>
+        <input type="text" class="form-control" name="curriculo" placeholder="Digite seu currículo">
       </div>
-      <div id="sociosContainer"></div>
-      <button type="button" class="btn btn-primary mb-3" onclick="adicionarSocio()">Adicionar sócio</button>
-      <button type="submit" class="btn btn-primary" name="Enviar" onclick="Enviar()">Enviar</button>
-      <div class="porcen">
-        <input type="hidden" id="porcentagemSocios" name="porcentagemSocios">
+      <div class="mb-3">
+        <label for="endereço" class="form-label">Endereço</label>
+        <input type="text" class="form-control" name="endereco" placeholder="Digite seu endereço">
       </div>
-    </form>
+      <div class="mb-3">
+        <label for="estado" class="form-label">Estado</label>
+        <input type="text" class="form-control" name="estado" placeholder="Digite seu estado">
+      </div>
+      <div class="mb-3">
+        <label for="cidade" class="form-label">Cidade</label>
+        <input type="text" class="form-control" name="cidade" placeholder="Digite sua cidade">
+      </div>
+      <div class="mb-3">
+        <label for="capital" class="form-label">Capital</label>
+        <input type="number" class="form-control" name="capital" placeholder="Digite o capital">
+      </div>
+  </form>
   </div>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script src="../telas/js/socio.js"></script>
+  <!-- Add Bootstrap JS and Popper.js links here -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../telas/socio.js"></script>
 </body>
+
 </html>

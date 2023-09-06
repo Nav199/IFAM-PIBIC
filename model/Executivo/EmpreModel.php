@@ -23,8 +23,8 @@ class Empreendimento extends Database {
     public function create_empre(){
         try {
             $stm = $this->connection->prepare("INSERT INTO empreendimento(Nome, Setor, Missao, Visao, Valores, FonteRecursos,id_usuario) VALUES (:nome, :setor, :missao, :visao, :valores, :fonteRecursos,:id_usuario)");
-
-            // Vincular os parâmetros com os valores dos atributos
+    
+         
             $stm->bindValue(":nome", $this->name);
             $stm->bindValue(":setor", $this->sector);
             $stm->bindValue(":missao", $this->mission);
@@ -32,16 +32,21 @@ class Empreendimento extends Database {
             $stm->bindValue(":valores", $this->values);
             $stm->bindValue(":fonteRecursos", $this->source);
             $stm->bindValue(":id_usuario", $this->id_usuario);
-            $stm->execute();
-
-            //id do Empreendimento
-            $lastInsertId_empre = $this->connection->lastInsertId();
-            
-            return $lastInsertId_empre;
+            $success = $stm->execute();
+    
+            if ($success) {
+                // Obter o ID do sócio inserido
+                $lastInsertedId_empre = $this->connection->lastInsertId();
+                return $lastInsertedId_empre;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            echo "Erro: " . $e->getMessage();
+            return null;
         }
     }
+    
 
     public function getlastInsertId_empre()
     {

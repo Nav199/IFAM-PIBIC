@@ -1,6 +1,5 @@
 <?php
-// Obtém os valores dos IDs do sócio e do usuário da URL
-$idSocio = isset($_GET['idSocio']) ? $_GET['idSocio'] : '';
+
 $idUsuario = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : '';
 ?>
 <!DOCTYPE html>
@@ -22,17 +21,11 @@ $idUsuario = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : '';
   <div class="container">
     <h1>Dados do Empreendimento</h1>
     <form action="index.php" method="POST">
-    <div class="mb-3">
+    <div class="mb-3" style="display: none;">
           <label for="idUsuario">ID do Usuário</label>
-          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario?>" readonly>
+          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value=1 readonly>
         </div>
         <div class="mb-3">
-          <label for="idSocio">ID do Socio</label>
-          <input type="text" class="form-control" id="idSocio" name="idSocio" value="<?php echo $idSocio?>" readonly>
-          <?php
-           $idSocio = isset($_GET['idSocio']) ? $_GET['idSocio'] : $idSocio;
-
-          ?>
       <div class="mb-3">
         <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
         <input type="text" class="form-control" id="nomeEmpresa" name="Nome" placeholder="Digite o nome da empresa">

@@ -4,29 +4,22 @@ require_once __DIR__."/../model/Database.php";
 
 class Verifica extends Database
 {   
+ 
+
     public function veri_dados($email, $senha)
     {
-        $stmt = $this->getConnection()->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $conn = $this->getConnection();
+        // sql
+        $sql = "SELECT * FROM usuario WHERE Email = :Email AND Senha = :Senha";
 
-        if (count($result) == 1) {
-            return true; // Credenciais corretas
-        } else {
-            return false; // Credenciais incorretas
+        $stm = $conn->prepare($sql);
+        $stm->bindParam(':Email',$email);
+        $stm->bindParam(':Senha',$senha);
+        $stm->execute();
+
+        if($stm->rowCount() > 0)
+        {
+            echo "Login feito com sucesso";
         }
     }
-}
-
-$data = json_decode(file_get_contents("php://input"), true);
-$verifica = new Verifica();
-$email = $data['email'];
-$senha = $data['password'];
-
-if ($verifica->veri_dados($email, $senha)) {
-    echo "Login bem-sucedido!";
-} else {
-    echo "Credenciais inválidas.";
 }

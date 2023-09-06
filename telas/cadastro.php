@@ -31,6 +31,8 @@
             </div>
             
             <button type="submit" class="btn btn-primary" name="cadastrar">Cadastrar</button>
+            <br>
+            <a href="../telas/login.php" class="btn btn-primary">Login</a>
         </form>
     </div>
 
