@@ -23,7 +23,8 @@ $idUsuario = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : '';
     <form action="index.php" method="POST">
     <div class="mb-3" style="display: none;">
           <label for="idUsuario">ID do Usuário</label>
-          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value=1 readonly>
+          <input type="text" class="form-control" id="idUsuario" name="idUsuario" value=<?php echo isset($_GET['id']) ?
+  $_GET['id'] : '' ; ?> readonly>
         </div>
         <div class="mb-3">
       <div class="mb-3">

@@ -221,4 +221,5 @@ function converterParaJSON() {
     var jsonData = JSON.stringify(data);
     console.log(jsonData); // Exibe os dados JSON no console (você pode utilizá-lo como necessário)
     enviarDados(jsonData); // Chama a função para enviar os dados para o servidor
+    window.location.href = "http://localhost/api/telas/financeiro/inves_pre_5.3.php";
 }

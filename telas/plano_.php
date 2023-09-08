@@ -17,7 +17,7 @@
                 <a class="nav-link" href="#">Plano de Marketing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/financeiro/inve_fixo.html">Plano Financeiro</a>
+                <a class="nav-link" href="../telas/financeiro/invesfixo.php">Plano Financeiro</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Construção de Cenário</a>

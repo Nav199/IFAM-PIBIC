@@ -18,7 +18,7 @@ class SocioController {
         
             // Criação do sócio principal
             $socioPrincipal = new Partner($nomeSocio, $telefoneSocio, $ruaSocio, $cidadeSocio, $estadoSocio, $capitalSocio, $curriculoSocio, $id_usuario);
-            //  $socioPrincipal->createpatel(); // Estava gerando duplicidade de registro no banco
+            $socioPrincipal->createpatel();
             $lastInsertedId_socio = $socioPrincipal->getLastInsertedId_socio();  // ID do Sócio
         
             // Criação da capital do sócio principal
@@ -28,7 +28,7 @@ class SocioController {
            
            
             echo "<script language='javascript'>window.alert('Sucesso ao cadastrar');</script>";
-            echo "<script language='javascript'>window.location='executivo.php?idUsuario=" . $id_usuario . "&idSocio=" . $lastInsertedId_socio . "';</script>";
+            echo "<script language='javascript'>window.location='executivo.php?idUsuario=" . $id_usuario . "';</script>";
             exit; // Adicionado para interromper a execução após o redirecionamento
         }
     }

@@ -10,15 +10,13 @@ require_once __DIR__.'/../telas/socio.php';
 require_once __DIR__.'/../telas/executivo.php';
 require_once __DIR__.'/../controller/partnerController.php';
 require_once __DIR__.'/../controller/empreController.php';
-require_once __DIR__.'/../telas/mercado.php';
+require_once __DIR__.'/../telas/mercado/mercado.php';
 require_once __DIR__.'/../controller/concorrentController.php';
 require_once __DIR__.'/../controller/forneceController.php';
 require_once __DIR__.'/../controller/clientController.php';
-require_once __DIR__.'/../telas/financeiro/invesfixo.php';
 require_once __DIR__.'/../controller/inves_Fixo_Maquinar.php';
 require_once __DIR__.'/../controller/inves_Fixo_Movel.php';
 require_once __DIR__.'/../controller/inves_Fixo_Veicu.php';
-require_once __DIR__.'/../telas/esti_custo_obra.php';
 require_once __DIR__.'/../controller/mao_obraController.php';
 //index de cadastro
 if (isset($_POST['cadastrar'])) {
@@ -27,36 +25,41 @@ if (isset($_POST['cadastrar'])) {
 }
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lê os dados JSON do corpo da solicitação
+    $json_data = file_get_contents('php://input');
 
-if ($_SERVER['REQUEST_METHOD'] === "POST"  && isset($_POST["idUsuario"])) {
-    $jsonData = file_get_contents('php://input');
-    $data = json_decode($jsonData, true);
-    $socio = new SocioController();
-    if ($data !== null && isset($data["Socios"]) && isset($_POST["idUsuario"])) {
-        $idUsuario = $_POST["idUsuario"];
-        $socios = $data["Socios"];
+    // Decodifica os dados JSON em um array PHP
+    $dados = json_decode($json_data, true);
+    $socio = new SocioController;
 
-        foreach ($socios as $item) {
-            $nome = $item["nome"];
-            $telefone = $item["telefone"];
-            $curriculo = $item["curriculo"];
-            $endereco = $item["endereco"];
-            $estado = $item["estado"];
-            $cidade = $item["cidade"];
-            $capital = $item["capital"];
-            
-            $socio->adicionarSocio($nome,$telefone,$endereco,$cidade,$estado,$capital,$curriculo,$idUsuario);
-        }
-        
-        // Responda com uma mensagem de sucesso
-        echo json_encode(array("success" => true, "message" => "Dados recebidos e processados com sucesso."));
+    if ($dados === null || !is_array($dados)) {
+        // JSON decoding failed or not an array
+        http_response_code(400); // Bad Request
+        echo json_encode(array('error' => 'Dados JSON inválidos ou não é uma matriz'));
     } else {
-        // Responda com uma mensagem de erro
-        echo json_encode(array("success" => false, "message" => "Erro ao processar os dados recebidos."));
+        // JSON decoding succeeded
+        // Itera sobre a matriz de objetos JSON e chama adicionarSocio para cada um
+        foreach ($dados as $socio) {
+            $socio->adicionarSocio(
+                $socio['nome'],
+                $socio['telefone'],
+                $socio['endereco'],
+                $socio['cidade'],
+                $socio['estado'],
+                $socio['capital'],
+                $socio['curriculo'],
+                $socio['id_usuario']
+            );
+        }
+
+        // Responda com uma mensagem de sucesso
+        echo json_encode(array('message' => 'Sócios adicionados com sucesso'));
     }
 } else {
-    // Responda com uma mensagem de erro se o método da solicitação não for POST
-    echo json_encode(array("success" => false, "message" => "Método inválido."));
+    // Responda a solicitações não-POST com um erro
+    http_response_code(405); // Method Not Allowed
+    echo json_encode(array('error' => 'Método não permitido'));
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['idUsuario'])) {
@@ -100,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $response = array("success" => true, "message" => "Dados recebidos com sucesso!");
         var_dump($jsonData);
         echo json_encode($response);
+      
     } else {
         // O JSON não foi decodificado corretamente, há um problema nos dados recebidos
         $response = array("success" => false, "message" => "Erro ao decodificar dados JSON!");

@@ -10,9 +10,7 @@ $somaSalarioEncargo = 0;
 foreach ($resultados as $resultado) {
     $somaSalarioEncargo += $resultado['salario'] + $resultado['encargo'];
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,7 +20,7 @@ foreach ($resultados as $resultado) {
 
     <!-- Inclua o Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="/../API/telas/custo_fixo.js"></script>
+    <script src="../financeiro/js/custo_fixo.js"></script>
 </head>
 <body>
     <table class="table table-bordered" id="Tabela_01">
