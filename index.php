@@ -8,16 +8,16 @@
     <nav class="navbar navbar-light bg-light">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" href="../telas/executivo.php">Plano Executivo</a>
+                <a class="nav-link active" href="../API/telas/executivo.php">Plano Executivo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../telas/mercado/mercado.php">Análise de Mercado</a>
+                <a class="nav-link" href="../API/telas/mercado/mercado.php">Análise de Mercado</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Plano de Marketing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/../API/telas/financeiro/invesfixo.php">Plano Financeiro</a>
+                <a class="nav-link" href="../API/telas/financeiro/invesfixo.php">Plano Financeiro</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Construção de Cenário</a>
@@ -26,7 +26,7 @@
                 <a class="nav-link" href="#">Avaliação do Plano</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../telas/login.php">Login</a>
+                <a class="nav-link" href="../API/telas/login.php">Login</a>
             </li>
         </ul>
     </nav>
