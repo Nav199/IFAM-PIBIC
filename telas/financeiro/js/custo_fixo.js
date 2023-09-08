@@ -62,7 +62,7 @@ function enviarDados(rows) {
     console.log(jsonData)
 
     // Enviar jsonData para a URL especificada usando a API fetch
-    fetch("http://localhost/api/telas/index.php", {
+    fetch("http://localhost/api/telas/index_dados", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

@@ -184,7 +184,7 @@ function obterDadosDaTabela(tabela) {
 }
 
 function enviarDados(jsonData) {
-    let url = "http://localhost/api/telas/index.php";
+    let url = "http://localhost/api/telas/iindex_dados";
     fetch(url, {
       method: "POST",
       headers: {

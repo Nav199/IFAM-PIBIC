@@ -46,7 +46,7 @@ function exportToJson() {
 
 
 function enviarDados(jsonData) {
-let url = "http://localhost/api/telas/index.php";
+let url = "http://localhost/api/telas/index_dados";
 fetch(url, {
 method: "POST",
 headers: {

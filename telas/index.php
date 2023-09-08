@@ -1,132 +1,44 @@
-<?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Planos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="../telas/executivo.php">Plano Executivo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../telas/mercado/mercado.php">Análise de Mercado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Plano de Marketing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/../API/telas/financeiro/invesfixo.php">Plano Financeiro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Construção de Cenário</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Avaliação do Plano</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../telas/login.php">Login</a>
+            </li>
+        </ul>
+    </nav>
 
-
-require_once __DIR__.'/../telas/cadastro.php';
-require_once __DIR__.'/../controller/UserController.php';
-require_once __DIR__.'/../telas/socio.php';
-require_once __DIR__.'/../telas/executivo.php';
-require_once __DIR__.'/../controller/partnerController.php';
-require_once __DIR__.'/../controller/empreController.php';
-require_once __DIR__.'/../telas/mercado/mercado.php';
-require_once __DIR__.'/../controller/concorrentController.php';
-require_once __DIR__.'/../controller/forneceController.php';
-require_once __DIR__.'/../controller/clientController.php';
-require_once __DIR__.'/../controller/inves_Fixo_Maquinar.php';
-require_once __DIR__.'/../controller/inves_Fixo_Movel.php';
-require_once __DIR__.'/../controller/inves_Fixo_Veicu.php';
-require_once __DIR__.'/../controller/mao_obraController.php';
-//index de cadastro
-if (isset($_POST['cadastrar'])) {
-    $user = new CadastroController();
-    $user->cadastrarUsuario();
-}
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Lê os dados JSON do corpo da solicitação
-    $json_data = file_get_contents('php://input');
-
-    // Decodifica os dados JSON em um array PHP
-    $dados = json_decode($json_data, true);
-    $socio = new SocioController;
-
-    if ($dados === null || !is_array($dados)) {
-        // JSON decoding failed or not an array
-        http_response_code(400); // Bad Request
-        echo json_encode(array('error' => 'Dados JSON inválidos ou não é uma matriz'));
-    } else {
-        // JSON decoding succeeded
-        // Itera sobre a matriz de objetos JSON e chama adicionarSocio para cada um
-        foreach ($dados as $socio) {
-            $socio->adicionarSocio(
-                $socio['nome'],
-                $socio['telefone'],
-                $socio['endereco'],
-                $socio['cidade'],
-                $socio['estado'],
-                $socio['capital'],
-                $socio['curriculo'],
-                $socio['id_usuario']
-            );
-        }
-
-        // Responda com uma mensagem de sucesso
-        echo json_encode(array('message' => 'Sócios adicionados com sucesso'));
-    }
-} else {
-    // Responda a solicitações não-POST com um erro
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(array('error' => 'Método não permitido'));
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['idUsuario'])) {
-    $empre = new EmpreendimentoController();
-    $empre->cadastrarEmpreendimento();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $client = new ClientController();
-    $client->cadastrar_client();
-    $concorrent = new ConcorrentController();
-    $concorrent->cadastrar_Concorrente();
-    $forne = new FornecedorController();
-    $forne->cadastrarFornecedor();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $jsonData = file_get_contents('php://input');
-    $data = json_decode($jsonData, true);
-
-    if ($data !== null) {
-        $maquinas_e_equipamentos = $data["maquinas_e_equipamentos"];
-        $moveis_e_utensilios = $data["moveis_e_utensilios"];
-        $veiculos = $data["veiculos"];
-
-        foreach ($maquinas_e_equipamentos as $item) {
-            $investimento = new Investimento_Fixo_Maquina();
-            $investimento->Adicionar_Inves($item["descricao"], $item["quantidade"], $item["valor_unitario"], $item["total"]);
-        }
-
-        foreach ($moveis_e_utensilios as $item) {
-            $investimento = new Fixo_Movel_Controller();
-            $investimento->Adicinar_Movel($item["descricao"], $item["quantidade"], $item["valor_unitario"], $item["total"]);
-        }
-        
-        foreach ($veiculos as $item) {
-            $investimento = new Fixo_Veicu_Controller();
-            $investimento->Adicionar_Veiculo($item["descricao"], $item["quantidade"], $item["valor_unitario"], $item["total"]);
-        }
-
-        $response = array("success" => true, "message" => "Dados recebidos com sucesso!");
-        var_dump($jsonData);
-        echo json_encode($response);
-      
-    } else {
-        // O JSON não foi decodificado corretamente, há um problema nos dados recebidos
-        $response = array("success" => false, "message" => "Erro ao decodificar dados JSON!");
-        echo json_encode($response);
-    }
-}
-
-if($_SERVER['REQUEST_METHOD'] === "POST")
-{
-    $jsonData = file_get_contents('php://input');
-    $data = json_decode($jsonData, true);
-
-    if($data !=null)
-    {
-        foreach ($data as $row) {
-            $mao = new mao_obraController();
-            $mao->cadastrar_mao( $row['funcao'], $row['empregados'], $row['salario'], $row['subtotal'], $row['encargos'], $row['calcuEncarg'], $row['total']);
-        }
-        $response = array("success" => true, "message" => "Dados recebidos com sucesso!");
-        var_dump($jsonData);
-        echo json_encode($response);
-    }
-       // O JSON não foi decodificado corretamente, há um problema nos dados recebidos
-       $response = array("success" => false, "message" => "Erro ao decodificar dados JSON!");
-       echo json_encode($response);
-}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>O que é um Plano de Negócios?</h2>
+                <p>Um plano de negócios é um documento que descreve os objetivos de um empreendimento e as estratégias para alcançá-los. Ele abrange vários aspectos, como a definição do público-alvo, análise de mercado, estratégias de marketing, projeções financeiras e muito mais.</p>
+                <p>Um plano de negócios é essencial para empreendedores, pois fornece uma estrutura clara para o crescimento do negócio, ajuda na tomada de decisões informadas e pode ser usado para atrair investidores e parceiros.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Cadastro de Usuário</h1>
-        <form action="index.php" method="POST">
+        <form action="index_dados" method="POST">
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
