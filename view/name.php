@@ -1,16 +1,15 @@
 <?php
 require_once __DIR__.'/../database/firebase.php';
+require_once __DIR__.'/../Models/firebaseModel.php';
 use App\Models\FirebaseModel;
 
 $firebase_url = $firebaseURL;
 $firebase_token = $firebaseToken;
 $firebase_Model = new FirebaseModel($firebase_url, $firebase_token);
 
-$dados = $firebase_Model->getdados(); // Chame a função sem passar um usuário específico
+$dados = $firebase_Model->getdados(); 
 
-
-
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="PT_BR">
@@ -27,7 +26,6 @@ $dados = $firebase_Model->getdados(); // Chame a função sem passar um usuário
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
-                    <!-- Adicione outras colunas conforme necessário -->
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +34,6 @@ $dados = $firebase_Model->getdados(); // Chame a função sem passar um usuário
                         <td><?php echo $id; ?></td>
                         <td><?php echo $usuario['nome']; ?></td>
                         <td><?php echo $usuario['email']; ?></td>
-                        <!-- Adicione outras colunas conforme necessário -->
                     </tr>
                 <?php } ?>
             </tbody>

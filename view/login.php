@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-6">
                 <!-- Formulário de login -->
-                <form class="login-form" action="/index.php" method="POST">
+                <form class="login-form" method="POST" action="/index.php">
                     <div class="form-group">
                         <label for="login">Login</label>
                         <input type="text" class="form-control" id="login" name="login" required>

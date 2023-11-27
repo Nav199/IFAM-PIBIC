@@ -24,7 +24,7 @@ class DataController
 
         if(!empty($nome) && !empty($CPF) &&!empty($email) && !empty($senha)){
 
-            if ($this->firebase->getElements($email) || $this->firebase->getElements($CPF)) {
+            if ($this->firebase->getUserId($email) || $this->firebase->getUserId($CPF)) {
                 echo json_encode(['success' => false, 'message' => 'Email e CPF já cadastrados']);
                 require_once __DIR__.'/../view/cadastro.php';
                 exit;

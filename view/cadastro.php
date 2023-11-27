@@ -49,16 +49,13 @@
                         <label for="senha">Senha</label>
                         <input type="password" class="form-control" id="senha" name="senha" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block" onclick="senha()">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
                 </form>
             </div>
             <p> <a href="/view/login.php">Login</a></p>
         </div>
     </div>
 
-    <script>
-        // Adicione scripts JS aqui, se necessário
-    </script>
 </body>
 
 </html>

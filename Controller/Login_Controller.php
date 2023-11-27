@@ -1,7 +1,6 @@
 <?php
 // verifiacr login
 namespace App\Controller;
-require_once __DIR__.'/ExecutivoController.php';
 require_once __DIR__.'/../vendor/autoload.php';
 use App\Models\FirebaseModel;
 
@@ -22,13 +21,9 @@ class LoginController
         if(!empty($user) && !empty($senha)){
             $dados = $this->firebase->getElements($user);
             if ($dados && isset($dados['senha']) && $dados['senha'] === $senha) {
-                // Usuário autenticado
-                echo json_encode(['success' => true, 'message' => 'Login bem-sucedido.']);
-                header('Location: /../view/criar_plano.php');
-                exit; 
-                /*$executivo = new ExecutivoController($this->firebase);
-                $executivo->store($dados);*/
-            }
+                require_once __DIR__.'/../view/home.php';
+                exit();
+            }            
         }
     }
 

@@ -16,45 +16,60 @@ class FirebaseModel
         $this->httpClient = new Client();
     }
 
-    public function sendData($data){
-        $response = $this->httpClient->post("$this->firebaseURL/usuario.json",[
+    public function sendData($data){ //envio para a tabela usuário
+        $response = $this->httpClient->post("$this->firebaseURL/Usuário.json",[
             'json'=>$data,
             'query'=>['auth'=>$this->firebaseSecret],
         ]);
         return json_decode($response->getBody(),true);
     }
 
-    public function getElements($user) {
-        $response = $this->httpClient->get("$this->firebaseURL/usuario.json", [
+    public function getUserId($user)
+    {
+        $response = $this->httpClient->get("$this->firebaseURL/Usuário.json", [
             'query' => ['auth' => $this->firebaseSecret],
         ]);
-    
+
         $dadosUsuarios = json_decode($response->getBody(), true);
-    
-        foreach ($dadosUsuarios as $usuario) {
+
+        foreach ($dadosUsuarios as $usuarioId => $usuario) {
             if (isset($usuario['email']) && $usuario['email'] === $user) {
-                print_r($dadosUsuarios);
-                return $usuario;
+                return $usuarioId;
             }
-        }
-        
-        foreach ($dadosUsuarios as $usuario) {
+
             if (isset($usuario['CPF']) && $usuario['CPF'] === $user) {
-                print_r($dadosUsuarios);
-                return $usuario;
+                return $usuarioId;
             }
         }
-        
 
         return null; // Usuário não encontrado
     }
     public function getdados() {
-        $response = $this->httpClient->get("$this->firebaseURL/usuario.json", [
+        $response = $this->httpClient->get("$this->firebaseURL/.json", [
             'query' => ['auth' => $this->firebaseSecret],
         ]);
     
         $dadosUsuarios = json_decode($response->getBody(), true);
+
+
         return $dadosUsuarios;
     }
 
+    //envio de plano executivo
+    public function sendData_Executivo($data){ 
+        $response = $this->httpClient->post("$this->firebaseURL/Executivo.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
+
+    //envio do analise de mercado
+    public function sendData_Mercado($data){ 
+        $response = $this->httpClient->post("$this->firebaseURL/Análise_Mercado.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
 }
