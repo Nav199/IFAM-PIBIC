@@ -33,7 +33,7 @@
                 <!-- Formulário de login -->
                 <form class="login-form" method="POST" action="/index.php">
                     <div class="form-group">
-                        <label for="login">Login</label>
+                        <label for="login">Email</label>
                         <input type="text" class="form-control" id="login" name="login" required>
                     </div>
                     <div class="form-group">
@@ -44,13 +44,63 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                     <hr>
-                    <button type="button" class="btn btn-danger btn-block">Entrar com Google</button>
-                    <button type="button" class="btn btn-primary btn-block">Entrar com Facebook</button>
+                    <!-- Adicione a chamada à função loginWithGoogle() -->
+                    <button type="button" class="btn btn-danger btn-block" onclick="loginWithGoogle()">Entrar com Google</button>
                 </form>
                 <p>Esqueceu sua senha? <a href="#">Recuperar senha</a></p>
-        <p>Ainda não tem uma conta? <a href="/view/cadastro.php">Criar uma conta</a></p>
+                <p>Ainda não tem uma conta? <a href="/view/cadastro.php">Criar uma conta</a></p>
             </div>
         </div>
     </div>
+   <!-- Scripts do Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+    <!-- Seu script personalizado -->
+    <script>
+       const firebaseConfig = {
+
+        apiKey: "AIzaSyBYbrbCxa4Iz_lnYuxtT2VX6sVXC04_Idw",
+
+        authDomain: "plano-31f6d.firebaseapp.com",
+
+        databaseURL: "https://plano-31f6d-default-rtdb.firebaseio.com/Usuário.json",
+
+        projectId: "plano-31f6d",
+
+        storageBucket: "plano-31f6d.appspot.com",
+
+        messagingSenderId: "508677726560",
+
+        appId: "1:508677726560:web:e8ebea1d277411d6667e05",
+
+        measurementId: "G-8ZEFKH6KQK"
+
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Configurar o provedor do Google
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        // Função para fazer login com o Google
+        function loginWithGoogle() {
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    // Sucesso ao fazer login com o Google
+                    var user = result.user;
+                    alert('Login com o Google bem-sucedido!');
+                    // Redirecione ou faça qualquer outra coisa após o login
+                })
+                .catch((error) => {
+                    // Handle errors aqui
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert('Erro ao fazer login com o Google: ' + errorMessage);
+                });
+        }
+    </script>
 </body>
+
 </html>

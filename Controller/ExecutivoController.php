@@ -5,7 +5,7 @@ use App\Models\FirebaseModel;
 class ExecutivoController
 {
     private $firebase;
-    
+
     public function __construct(FirebaseModel $firebase)
     {
         $this->firebase = $firebase;
@@ -13,69 +13,57 @@ class ExecutivoController
 
     public function index()
     {
-        require_once __DIR__.'/../view/plano_executivo/plano_executivo.php';
+        require_once __DIR__.'/../view/plano_executivo.php';
     }
 
-    public function store($user)
+    public function store()
     {
-        if (empty($user)) {
-            // Lidar com o caso em que o ID do usuário não está presente
-            echo json_encode(['success' => false, 'message' => 'ID do usuário ausente.']);
-            exit;
-        }
+        //pegando o id do usuário
 
-        $Nome = $_POST['nomeEmpresa'] ?? '';
-        $CPF_CNPJ = $_POST['cnpjCpf'] ?? '';
-        $missao = $_POST['missaoEmpresa'] ?? '';
-        $visao = $_POST['visaoEmpresa'] ?? '';
-        $valores = $_POST['valoresEmpresa'] ?? '';
-        $setor = $_POST['setorAtividade'] ?? '';
-        $cep = $_POST['cep'] ?? '';
-        $localidade = $_POST['localidade'] ?? '';
-        $bairro = $_POST['bairroDistrito'] ?? '';
-        $logra = $_POST['logradouro'] ?? '';
-        $numero = $_POST['numero'] ?? '';
-        $fonteRecursos = $_POST['fonteRecursos'] ?? '';
-       
-        // Obtenha o ID do usuário
-        $id_usuario = $this->firebase->getUserId($user);
+        $ultimoIdUsuario = $this->firebase->getUltimoIdUsuario(); 
 
-        if (!$id_usuario) {
-            // Lidar com o caso em que o usuário não foi encontrado
-            echo json_encode(['success' => false, 'message' => 'Usuário não encontrado.']);
-            exit;
-        }
-
-        $data = [
-            'nome' => $Nome,
-            'CNPJ/CPF' => $CPF_CNPJ,
-            'missao' => $missao,
-            'visao' => $visao,
-            'valores' => $valores,
-            'setor' => $setor,
+        // Os dados que devem ser armazenados no Firebase
+        $nome_empresa = $_POST["nomeEmpresa"] ?? '';
+        $CPF = $_POST["cnpjCpf"] ?? '';
+        $setores = isset($_POST["setorAtividade"]) ? $_POST["setorAtividade"] : '';
+        $cep = $_POST["cep"] ?? '';
+        $localidade = $_POST["localidade"] ?? '';
+        $bairro = $_POST["bairroDistrito"] ?? '';
+        $logradouro = $_POST["logradouro"] ?? '';
+        $numero = $_POST["numero"] ?? '';
+        $missao = $_POST["missaoEmpresa"] ?? '';
+        $valores = $_POST["valoresEmpresa"] ?? '';
+        $visao = $_POST["visaoEmpresa"] ?? '';
+        $fonte = $_POST["fonteRecursos"] ?? '';
+    
+        $Data = [
+            'nome_empresa' => $nome_empresa,
+            'CPF' => $CPF,
+            'setores' =>  $setores,
             'cep' => $cep,
             'localidade' => $localidade,
             'bairro' => $bairro,
-            'logradouro' => $logra,
+            'logradouro' => $logradouro,
             'numero' => $numero,
-            'fonteRecursos' => $fonteRecursos,
-            'id_usuario' => $id_usuario
+            'missao' => $missao,
+            'valores' => $valores,
+            'visao' => $visao,
+            'fonte' => $fonte,
+            'id_user'=>$ultimoIdUsuario
         ];
-
-        $response = $this->firebase->sendData_Executivo($data);
-
+    
+        $response = $this->firebase->sendData_Executivo($Data);
+    
+        
         if (isset($response['name'])) {
             // Sucesso
-            echo json_encode(['success' => true, 'message' => 'Dados enviados com sucesso.']);
+            header('Location: /../view/mercado.php');
+            exit;
         } else {
             // Erro
-            echo json_encode(['success' => false, 'message' => 'Erro ao enviar dados para o Firebase.']);
+            echo '<script>console.log("Erro ao enviar dados para o Firebase.");</script>';
         }
-        
-        // Move a lógica de redirecionamento para o final do script
-        require_once __DIR__.'/../view/mercado.php';
-        exit;
-        
     }
+    
 }
-?>
+

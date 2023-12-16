@@ -5,20 +5,25 @@
     <title>Criar Plano de Negócios</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="/view/js/login.js"></script>
+    <script src="/view/js/login.js"></script>
     <style>
         body {
-            background-color: #123456; /* Substitua pelo código de cor desejado */
+            background-color: #123456;
+            /* Substitua pelo código de cor desejado */
         }
-        
+
         .login-form label {
-            color: white; /* Defina a cor do label */
+            color: white;
+            /* Defina a cor do label */
         }
-        
+
         .login-form .form-control {
-            background-color: transparent; /* Defina a cor de fundo transparente */
-            border-color: white; /* Defina a cor da borda */
-            color: white; /* Defina a cor do texto */
+            background-color: transparent;
+            /* Defina a cor de fundo transparente */
+            border-color: white;
+            /* Defina a cor da borda */
+            color: white;
+            /* Defina a cor do texto */
         }
     </style>
 </head>
@@ -32,7 +37,7 @@
             </div>
             <div class="col-md-6">
                 <!-- Formulário de cadastro -->
-                <form class="login-form" method="POST" action="/index.php">
+                <form class="login-form" id="cadastroForm" method="post" action="/index.php">
                     <div class="form-group">
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
@@ -55,7 +60,6 @@
             <p> <a href="/view/login.php">Login</a></p>
         </div>
     </div>
-
 </body>
 
 </html>
