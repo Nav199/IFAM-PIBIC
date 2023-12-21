@@ -27,11 +27,11 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Imagem aqui -->
-                <img src="/view/img/Login.png" alt="Imagem" class="image">
+                <img src="/src/App/view/img/Login.png" alt="Imagem" class="image">
             </div>
             <div class="col-md-6">
                 <!-- Formulário de login -->
-                <form class="login-form" method="POST" action="/index.php">
+                <form class="login-form" method="POST" action="/">
                     <div class="form-group">
                         <label for="login">Email</label>
                         <input type="text" class="form-control" id="login" name="login" required>
@@ -48,7 +48,7 @@
                     <button type="button" class="btn btn-danger btn-block" onclick="loginWithGoogle()">Entrar com Google</button>
                 </form>
                 <p>Esqueceu sua senha? <a href="#">Recuperar senha</a></p>
-                <p>Ainda não tem uma conta? <a href="/view/cadastro.php">Criar uma conta</a></p>
+                <p>Ainda não tem uma conta? <a href="/src/App/view/cadastro.php">Criar uma conta</a></p>
             </div>
         </div>
     </div>

@@ -1,70 +1,43 @@
 <?php
 
+// index.php
+
 require_once __DIR__.'/vendor/autoload.php';
 require_once __DIR__.'/database/firebase.php';
-require_once __DIR__.'/Models/firebaseModel.php';
-require_once __DIR__.'/Controller/DataController.php';
-require_once __DIR__.'/Controller/ExecutivoController.php';
-require_once __DIR__.'/Controller/MercadoController.php';
-use App\Controller\DataController;
-use App\Controller\ExecutivoController;
-use App\Controller\Mercado_Controller;
+
+use FastRoute\RouteCollector;
+use FastRoute\Dispatcher;
 use App\Models\FirebaseModel;
-use App\Controller\LoginController;
+
+// Configuração das rotas
+$dispatcher = FastRoute\simpleDispatcher(require_once __DIR__.'/routes/routes.php');
 
 $firebase_url = $firebaseURL;
 $firebase_token = $firebaseToken;
+// Manipulação da requisição
+$httpMethod = $_SERVER['REQUEST_METHOD'];
+$uri = $_SERVER['REQUEST_URI'];
 
-$firebase_Model = new FirebaseModel($firebase_url, $firebase_token);
+// Roteamento usando FastRoute
+$routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
-//sessão
-session_start();
+switch ($routeInfo[0]) {
+    case Dispatcher::NOT_FOUND:
+        // Tratamento para rota não encontrada
+        echo '404 Not Found';
+        break;
+    case Dispatcher::METHOD_NOT_ALLOWED:
+        // Tratamento para método não permitido
+        echo '405 Method Not Allowed';
+        break;
+    case Dispatcher::FOUND:
+        // A rota foi encontrada
+        $handler = $routeInfo[1];
+        $vars = $routeInfo[2];
 
-// Verifica a existência e conteúdo do PATH_INFO
-if (!array_key_exists('PATH_INFO', $_SERVER) || empty($_SERVER['PATH_INFO']) || $_SERVER['PATH_INFO'] === '/') {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $dataController = new DataController($firebase_Model);
-        $dataController->store();
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $dataController = new DataController($firebase_Model);
-        $dataController->index();
-    }
-    elseif ($_SERVER['PATH_INFO'] === '/home') {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Lógica para o método POST em '/home'
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__.'/view/home.php';
-        }
-    } elseif ($_SERVER['PATH_INFO'] === '/perfil') {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Lógica para o método POST em '/perfil'
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__.'/view/perfil.php';
-        }
-    } elseif ($_SERVER['PATH_INFO'] === '/user') {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once __DIR__.'/view/name.php';
-        }
-    }
-} 
-    //POST DE EXECUTIVO
-   
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $executivoController = new ExecutivoController($firebase_Model);
-        $executivoController->store();
-
-    }
-
-    //POST DE ANALISE DE MERCADO
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $mercadoController = new Mercado_Controller($firebase_Model);
-        $mercadoController->store();
-    } 
-
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $loginController = new LoginController($firebase_Model);
-    $loginController->login();
+        //  manipulador com os parâmetros
+        [$controllerClass, $method] = $handler;
+        $controller = new $controllerClass(new FirebaseModel($firebaseURL, $firebaseToken));
+        $controller->$method($vars);
+        break;
 }
-

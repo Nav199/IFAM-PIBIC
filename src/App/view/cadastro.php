@@ -33,11 +33,11 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Imagem aqui -->
-                <img src="/view/img/Login.png" alt="Imagem" class="image">
+                <img src="/src/App/view/img/Login.png" alt="Imagem" class="image">
             </div>
             <div class="col-md-6">
                 <!-- Formulário de cadastro -->
-                <form class="login-form" id="cadastroForm" method="post" action="/index.php">
+                <form class="login-form" id="cadastroForm" method="POST" action="/">
                     <div class="form-group">
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
@@ -57,7 +57,7 @@
                     <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
                 </form>
             </div>
-            <p> <a href="/view/login.php">Login</a></p>
+            <p> <a href="/login">Login</a></p>
         </div>
     </div>
 </body>

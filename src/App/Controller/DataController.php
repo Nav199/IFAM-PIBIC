@@ -15,7 +15,7 @@ class DataController
     }
 
     public function store() {
-        //id user
+     
         $nome = $_POST['nome'] ?? '';
         $CPF = $_POST['cpf'] ?? '';
         $email = $_POST['email'] ?? '';
@@ -40,12 +40,10 @@ class DataController
     
             $response = $this->firebase->sendData($userData);
     
-            if ($response !== null && isset($response['id'])) {
+            if ($response['name']) {
                 // Sucesso
-                $userId = $response['id'];
-                $this->firebase->createSession($userId);
                 echo json_encode(['success' => true, 'message' => 'Dados enviados com sucesso.']);
-                header('Location: /../view/home.php');
+                require_once __DIR__.'/../view/home.php';
                 exit;
             } else {
                 // Erro

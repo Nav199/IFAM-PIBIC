@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controller;
-
-require_once __DIR__.'/../vendor/autoload.php';
 use App\Models\FirebaseModel;
 
 class LoginController
@@ -24,8 +22,8 @@ class LoginController
     
         if ($verificar) {
             // Redirecionar para a página home
-            header('Location: /../view/home.php');
-            exit;
+            header('Location:  /../view/home.php');
+            exit;            
         } else {
             // Se o login falhar, redirecionar de volta para a página de login
             echo 'Redirecionando para login';
@@ -37,6 +35,6 @@ class LoginController
 
     public function index()
     {
-        header('Location: /../view/login.php');
+        require_once __DIR__.'/../view/login.php';
     }
 }

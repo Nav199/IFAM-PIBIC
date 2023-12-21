@@ -7,7 +7,7 @@
     <!-- Inclua o CSS do Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/view/css/home.css">
+    <link rel="stylesheet" href="/src/App/view/css/home.css">
 </head>
 <body>
     <div class="sidebar">
@@ -41,7 +41,7 @@
     </header>
 
     <button class="btn btn-criar-plano" >
-    <a href="/view/plano_executivo.php" style="text-decoration: none; color: inherit;">
+    <a href="/src/App/view/plano_executivo.php" style="text-decoration: none; color: inherit;">
         Criar um novo plano
     </a>
     </button>
