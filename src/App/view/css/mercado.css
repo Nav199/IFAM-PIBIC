@@ -1,0 +1,29 @@
+body {
+    background-color: rgba(21, 25, 41, 1);
+    margin: 0; /* Reset default margin */
+}
+
+.img img {
+    width: 50px; /* Ajustar a largura conforme necessário */
+    height: 50px; /* Ajustar a altura conforme necessário */
+}
+
+
+.navbar-custom {
+    background-color: rgba(21, 25, 41, 1);
+   
+}
+
+.white-label {
+    color: rgba(255, 255, 255, 1);
+}
+
+.custom-input {
+    background-color: rgba(28, 36, 56, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Estilo para os placeholders */
+.custom-placeholder::placeholder {
+    color: rgba(123, 123, 123, 1);
+}

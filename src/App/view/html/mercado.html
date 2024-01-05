@@ -6,60 +6,48 @@
   <title>Análise de Mercado</title>
   <!-- Incluindo os estilos do Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="/view/css/mercado.css">
+  <link rel="stylesheet" href="/src/App/view/css/mercado.css">
 </head>
-    <style>
-      .white-label {
-          color: rgba(255, 255, 255, 1);
-      }
-      .custom-input {
-              background-color: rgba(28, 36, 56, 1);
-              color: rgba(255, 255, 255, 1);
-          }
-
-          /* Estilo para os placeholders */
-          .custom-placeholder::placeholder {
-              color: rgba(123, 123, 123, 1);
-          }
-    </style>
-<body  style="background-color: rgba(21, 25, 41, 1);">   
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Perfil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Configurações</a>
-        </li>
-      </ul>
+<body>   
+  <nav class="navbar navbar-expand-md navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h1 class="m-0">
+          <img class="d-block w-60" src="/src/App/view/img/logo.png" alt="Logo da loja">
+        </h1>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Configurações</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
   <h2 class="text-center mb-4 white-label">Análise de Mercado</h2>
-  <form action="/index.php" method="post">
+  <form action="/" method="post">
     <div class="container mt-4">
       <div class="mb-3">
-        <label for="publico" class="form-label text-center white-label">Público Alvo</label>
-        <input type="text" class="form-control" id="publico" name="publico" placeholder="Público Alvo">
+          <label for="publico" class="form-label white-label text-center">Público Alvo</label>
+          <textarea class="form-control" id="publico" name="publico" placeholder="Público Alvo"></textarea>
       </div>
       <div class="mb-3">
-        <label for="comportamento" class="form-label white-label">Comportamento</label>
-        <input type="text" class="form-control" id="comportamento" name="comportamento" placeholder="Comportamento">
+          <label for="comportamento" class="form-label white-label">Comportamento</label>
+          <textarea class="form-control" id="comportamento" name="comportamento" placeholder="Comportamento"></textarea>
       </div>
       <div class="mb-3">
-        <label for="area" class="form-label white-label">Área de Abrangência</label>
-        <input type="text" class="form-control" id="area" name="area" placeholder="Área de Abrangência">
+          <label for="area" class="form-label white-label">Área de Abrangência</label>
+          <textarea class="form-control" id="area" name="area" placeholder="Área de Abrangência"></textarea>
       </div>
-
+  </div>
+  
       <div class="container mt-4 ">
         <h3 class="white-label">Fornecedores</h3>
 
@@ -78,9 +66,11 @@
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary text-center">Enviar</button>
     </div>
   </form>
+  
+  <button type="submit" class="btn btn-primary text-center">Enviar</button>
+
 
   <!-- Incluindo o script do Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -139,6 +129,26 @@
       concorrentesContainer.appendChild(divConcorrente);
       contadorConcorrentes++;
     }
+    document.getElementById('formAnaliseMercado').addEventListener('submit', function (event) {
+      event.preventDefault(); // Impede o envio padrão do formulário
+
+      // Coleta os dados do formulário
+      const formData = new FormData(this);
+
+      // Envia os dados para o endpoint da API usando fetch
+      fetch('/api/enviar', {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Manipula a resposta da API, se necessário
+        console.log('Resposta da API:', data);
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+    });
   </script>
 </body>
 </html>

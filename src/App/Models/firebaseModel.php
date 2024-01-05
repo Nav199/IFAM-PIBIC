@@ -76,7 +76,6 @@ class FirebaseModel
     }
     
     //Model para exxecutivo
-    //envio de plano executivo
     public function sendData_Executivo($data){ 
         $response = $this->httpClient->post("$this->firebaseURL/Executivo.json",[
             'json'=>$data,
@@ -99,7 +98,7 @@ class FirebaseModel
 
     //envio do analise de mercado
     public function sendData_Mercado($data){ 
-        $response = $this->httpClient->post("$this->firebaseURL/Análise_Mercado.json",[
+        $response = $this->httpClient->post("$this->firebaseURL/Mercado.json",[
             'json'=>$data,
             'query'=>['auth'=>$this->firebaseSecret],
         ]);

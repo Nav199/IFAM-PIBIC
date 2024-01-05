@@ -43,7 +43,7 @@ class DataController
             if ($response['name']) {
                 // Sucesso
                 echo json_encode(['success' => true, 'message' => 'Dados enviados com sucesso.']);
-                require_once __DIR__.'/../view/home.php';
+                header('Location: /Home');
                 exit;
             } else {
                 // Erro

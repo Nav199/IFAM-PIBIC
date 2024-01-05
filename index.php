@@ -35,9 +35,19 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
 
-        //  manipulador com os parâmetros
-        [$controllerClass, $method] = $handler;
-        $controller = new $controllerClass(new FirebaseModel($firebaseURL, $firebaseToken));
-        $controller->$method($vars);
+        // Verifica se $handler é um array com duas posições
+        if (is_array($handler) && count($handler) === 2) {
+            [$controllerClass, $method] = $handler;
+            $controller = new $controllerClass(new FirebaseModel($firebaseURL, $firebaseToken));
+
+            // Verifica se a classe do controlador e o método existem
+            if (method_exists($controller, $method)) {
+                $controller->$method($vars);
+            } else {
+                echo 'Erro: Método não encontrado.';
+            }
+        } else {
+            echo 'Erro: Handler inválido.';
+        }
         break;
 }

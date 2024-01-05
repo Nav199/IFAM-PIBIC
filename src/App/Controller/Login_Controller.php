@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+require_once 'vendor/autoload.php';
 use App\Models\FirebaseModel;
 
 class LoginController

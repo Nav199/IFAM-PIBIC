@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Models\FirebaseModel;
+use GuzzleHttp\Psr7\Header;
 
 class ExecutivoController
 {
@@ -74,7 +75,7 @@ class ExecutivoController
     
             if (isset($response['name'])) {
                 // Sucesso
-                header('Location: /../view/mercado.php');
+                header('Location: /mercado');
                 exit;
             } else {
                 // Erro

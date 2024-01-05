@@ -3,30 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabela com campos dinâmicos</title>
+  <title>Análise de Mercado</title>
   <!-- Incluindo os estilos do Bootstrap -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/src/App/view/css/mercado.css">
 </head>
-<body>
-  <form action="/index.php" method="post">
+<body>   
+  <nav class="navbar navbar-expand-md navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h1 class="m-0">
+          <img class="d-block w-60" src="/src/App/view/img/logo.png" alt="Logo da loja">
+        </h1>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Configurações</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <h2 class="text-center mb-4 white-label">Análise de Mercado</h2>
+  <form action="/" method="post">
     <div class="container mt-4">
       <div class="mb-3">
-        <label for="publico" class="form-label">Público Alvo</label>
-        <input type="text" class="form-control" id="publico" name="publico" placeholder="Público Alvo">
+          <label for="publico" class="form-label white-label text-center">Público Alvo</label>
+          <textarea class="form-control" id="publico" name="publico" placeholder="Público Alvo"></textarea>
       </div>
       <div class="mb-3">
-        <label for="comportamento" class="form-label">Comportamento</label>
-        <input type="text" class="form-control" id="comportamento" name="comportamento" placeholder="Comportamento">
+          <label for="comportamento" class="form-label white-label">Comportamento</label>
+          <textarea class="form-control" id="comportamento" name="comportamento" placeholder="Comportamento"></textarea>
       </div>
       <div class="mb-3">
-        <label for="area" class="form-label">Área de Abrangência</label>
-        <input type="text" class="form-control" id="area" name="area" placeholder="Área de Abrangência">
+          <label for="area" class="form-label white-label">Área de Abrangência</label>
+          <textarea class="form-control" id="area" name="area" placeholder="Área de Abrangência"></textarea>
       </div>
+  </div>
+  
+      <div class="container mt-4 ">
+        <h3 class="white-label">Fornecedores</h3>
 
-      <div class="container mt-4">
-        <h3>Fornecedores</h3>
-
-        <button class="btn btn-primary" type="button" onclick="adicionarFornecedor()">Adicionar fornecedor</button>
+        <button class="btn btn-primary" type="button" onclick="adicionarFornecedor()"><i class="bi bi-x-lg">+</i></button>
         <div id="fornecedoresContainer">
         
         </div>
@@ -34,16 +59,18 @@
       </div>
 
       <div class="container mt-4">
-        <h3>Concorrentes</h3>
-        <button class="btn btn-primary" type="button" onclick="adicionarConcorrente()">Adicionar concorrente</button>
+        <h3 class="white-label">Concorrentes</h3>
+        <button class="btn btn-primary" type="button" onclick="adicionarConcorrente()"><i class="bi bi-x-lg">+</i></button>
         <div id="concorrentesContainer">
 
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </form>
+  
+  <button type="submit" class="btn btn-primary text-center">Enviar</button>
+
 
   <!-- Incluindo o script do Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

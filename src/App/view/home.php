@@ -41,7 +41,7 @@
     </header>
 
     <button class="btn btn-criar-plano" >
-    <a href="/src/App/view/plano_executivo.php" style="text-decoration: none; color: inherit;">
+    <a href="/executivo" style="text-decoration: none; color: inherit;">
         Criar um novo plano
     </a>
     </button>
