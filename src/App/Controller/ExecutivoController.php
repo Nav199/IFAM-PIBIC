@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 use App\Models\FirebaseModel;
-use GuzzleHttp\Psr7\Header;
 
 class ExecutivoController
 {

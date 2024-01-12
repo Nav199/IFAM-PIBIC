@@ -21,6 +21,7 @@ $uri = $_SERVER['REQUEST_URI'];
 // Roteamento usando FastRoute
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
+var_dump($routeInfo);
 switch ($routeInfo[0]) {
     case Dispatcher::NOT_FOUND:
         // Tratamento para rota não encontrada

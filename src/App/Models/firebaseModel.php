@@ -36,10 +36,6 @@ class FirebaseModel
             if (isset($usuario['email']) && $usuario['email'] === $user) {
                 return $usuarioId;
             }
-
-            if (isset($usuario['CPF']) && $usuario['CPF'] === $user) {
-                return $usuarioId;
-            }
         }
 
         return null; // Usuário não encontrado
@@ -95,7 +91,6 @@ class FirebaseModel
         return $dadosUsuarios;
     }
     
-
     //envio do analise de mercado
     public function sendData_Mercado($data){ 
         $response = $this->httpClient->post("$this->firebaseURL/Mercado.json",[
@@ -105,45 +100,28 @@ class FirebaseModel
         return json_decode($response->getBody(),true);
     }
 
-    //sessão do usuário
- public function createSession($userId)
-{
-    $data = ['userId' => $userId];
-    
-    $response = $this->httpClient->post("$this->firebaseURL/Sessão.json", [
-        'json' => $data,
-        'query' => ['auth' => $this->firebaseSecret],
-    ]);
-
-    return json_decode($response->getBody(), true);
-}
-
-public function verifyUserCredentials($user, $senha)
-{
-    $response = $this->httpClient->get("$this->firebaseURL/Usuário.json", [
-        'query' => ['auth' => $this->firebaseSecret],
-    ]);
-
-    $dadosUsuarios = json_decode($response->getBody(), true);
-
-    foreach ($dadosUsuarios as $usuarioId => $usuario) {
-        if (isset($usuario['email']) && $usuario['email'] === $user) {
-            // Verificar a senha usando password_verify
-            if (password_verify($senha, $usuario['senha'])) {
-                return $usuarioId;
-            }
-        }
-
-        if (isset($usuario['CPF']) && $usuario['CPF'] === $user) {
-            // Verificar a senha usando password_verify
-            if (password_verify($senha, $usuario['senha'])) {
-                return $usuarioId;
-            }
-        }
+    // envio do plano de marketing
+    public function send_Marketing($data)
+    {
+        $response = $this->httpClient->post("$this->firebaseURL/Marketing.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
     }
 
-    return null; // Usuário não encontrado ou senha incorreta
-}
 
+    //sessão do usuário
+    public function createSession($userId)
+    {
+        $data = ['userId' => $userId];
+        
+        $response = $this->httpClient->post("$this->firebaseURL/Sessão.json", [
+            'json' => $data,
+            'query' => ['auth' => $this->firebaseSecret],
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
 
 }

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-require_once 'vendor/autoload.php';
 use App\Models\FirebaseModel;
 
 class LoginController
@@ -19,19 +17,39 @@ class LoginController
         $senha = $_POST['senha'] ?? '';
     
         // Verificar login
-        $verificar = $this->firebase->verifyUserCredentials($user, $senha);
+        $verificar = $this->verificar_login($user,$senha);
+
     
         if ($verificar) {
             // Redirecionar para a página home
-            header('Location:  /../view/home.php');
+            header('Location:  /Home');
             exit;            
         } else {
             // Se o login falhar, redirecionar de volta para a página de login
             echo 'Redirecionando para login';
-            header('Location: /../view/login.php');
+            header('Location:  /login');
             exit(); // Certifique-se de usar exit() após o redirecionamento
         }
         
+    }
+
+    public function verificar_login($user,$senha)
+    {
+        $user_id = $this->firebase->getUserId($user);
+        if($user_id)
+        {
+            $user_data = $this->firebase->getdados();
+            $userDetails = $user_data[$user_id] ?? null;
+
+            if ($userDetails && isset($userDetails['senha'])) {
+                // Comparar a senha fornecida com a senha armazenada no Firebase
+                if ($senha == $userDetails['senha']) {
+                    // Senha correta, o login é bem-sucedido
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public function index()

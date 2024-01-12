@@ -32,7 +32,7 @@
     </div>
   </nav>
   <h2 class="text-center mb-4 white-label">Análise de Mercado</h2>
-  <form action="/" method="post">
+  <form action="/mercado" method="post">
     <div class="container mt-4">
       <div class="mb-3">
           <label for="publico" class="form-label white-label text-center">Público Alvo</label>
@@ -67,11 +67,11 @@
       </div>
       <br>
     </div>
+    <button type="submit" class="btn btn-primary text-center">Enviar</button>
+    <input type="hidden" name="contadorFornecedores" value="0" id="contadorFornecedores">
+    <input type="hidden" name="contadorConcorrentes" value="0" id="contadorConcorrentes">
   </form>
   
-  <button type="submit" class="btn btn-primary text-center">Enviar</button>
-
-
   <!-- Incluindo o script do Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -102,6 +102,7 @@
 
       fornecedoresContainer.appendChild(divFornecedor);
       contadorFornecedores++;
+      document.getElementById('contadorFornecedores').value = contadorFornecedores;
     }
 
     function adicionarConcorrente() {
@@ -128,6 +129,7 @@
 
       concorrentesContainer.appendChild(divConcorrente);
       contadorConcorrentes++;
+      document.getElementById('contadorConcorrentes').value = contadorConcorrentes;
     }
   </script>
 </body>

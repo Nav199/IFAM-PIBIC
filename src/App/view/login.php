@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-6">
                 <!-- Formulário de login -->
-                <form class="login-form" method="POST" action="/">
+                <form class="login-form" method="POST" action="/login">
                     <div class="form-group">
                         <label for="login">Email</label>
                         <input type="text" class="form-control" id="login" name="login" required>
