@@ -48,7 +48,7 @@
                     <button type="button" class="btn btn-danger btn-block" onclick="loginWithGoogle()">Entrar com Google</button>
                 </form>
                 <p>Esqueceu sua senha? <a href="#">Recuperar senha</a></p>
-                <p>Ainda não tem uma conta? <a href="/src/App/view/cadastro.php">Criar uma conta</a></p>
+                <p>Ainda não tem uma conta? <a href="/">Criar uma conta</a></p>
             </div>
         </div>
     </div>

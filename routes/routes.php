@@ -13,6 +13,10 @@ return function (RouteCollector $r) {
     $r->addRoute('GET', '/executivo', ['App\Controller\ExecutivoController', 'index']);
     $r->addRoute('POST', '/executivo', ['App\Controller\ExecutivoController', 'store']);
 
+    //rota de sócios
+
+    $r->addRoute('POST','/Socios',[''],'store');
+
     //rota de mercado
 
     $r->addRoute('GET','/mercado',['App\Controller\MercadoController','index']);
