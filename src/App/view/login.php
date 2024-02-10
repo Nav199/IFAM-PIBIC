@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Imagem aqui -->
-                <img src="/src/App/view/img/Login.png" alt="Imagem" class="image">
+                <img src="src\App\view\img\Login.png" alt="Imagem" class="image">
             </div>
             <div class="col-md-6">
                 <!-- Formulário de login -->

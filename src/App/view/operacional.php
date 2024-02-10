@@ -21,38 +21,39 @@
     <!-- Capacidade Produtiva -->
     <div class="mb-5">
         <h3 class="text-center" style="color: white;">Capacidade Produtiva</h3>
-        <form method="post" action="">
+        <form method="POST" action="/Operacional">
             <div class="mb-3">
                 <label for="capacidadeMaxima" style="color: white;">Capacidade Máxima:</label>
-                <input type="text" class="form-control col-6" id="capacidadeMaxima" name="capacidadeMaxima">
+                <input type="number" class="form-control col-6" id="capacidadeMaxima" name="capacidadeMaxima">
             </div>
             <div class="mb-3">
                 <label for="volumeInicial">Volume Inicial:</label>
-                <input type="text" class="form-control" id="volumeInicial" name="volumeInicial">
+                <input type="number" class="form-control" id="volumeInicial" name="volumeInicial">
             </div>
-     
 
-    <!-- Necessidade Pessoal -->
-    <div class="mb-5">
-        <h3 class="text-center p-4" style="color: white;">Necessidade Pessoal</h3>
-        <div class="mb-5">
-            <table id="tabelaNecessidadePessoal" class="table table-dark table-striped-columns text-center">
-                <tr>
-                    <td>Cargo</td>
-                    <td>Qualificações</td>
-                    <td>Ações</td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control" id="novoCargo"></td>
-                    <td><input type="text" class="form-control" id="novaFuncao"></td>
-                    <td><button type="button" class="btn btn-success" onclick="adicionarCargoFuncao()">Adicionar</button></td>
-                </tr>
-            </table>
-        </div>
-      </div>
-     </form>
+            <!-- Necessidade Pessoal -->
+            <div class="mb-5">
+                <h3 class="text-center p-4" style="color: white;">Necessidade Pessoal</h3>
+                <div class="mb-5">
+                    <table id="tabelaNecessidadePessoal" name="tabelaNecessidadePessoal" class="table table-dark table-striped-columns text-center">
+                        <tr>
+                            <td>Cargo</td>
+                            <td>Qualificações</td>
+                            <td>Ações</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" id="novoCargo"></td>
+                            <td><input type="text" class="form-control" id="novaFuncao"></td>
+                            <td><button type="button" class="btn btn-success" onclick="adicionarCargoFuncao()">Adicionar</button></td>
+                        </tr>
+                    </table>
+                    <!-- Campo oculto para armazenar os dados da tabela -->
+                    <input type="hidden" name="tabelaNecessidadePessoal" id="tabelaNecessidadePessoalHidden" value="">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light text-center mt-3">Enviar</button>
+        </form>
     </div>
-      <button type="button" class="btn btn-light text-center mt-3">Enviar</button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofOgP9bxFiKxM/6p8ZYicR5StB9S6Uwe" crossorigin="anonymous"></script>
 
     <script>
@@ -71,6 +72,9 @@
                 cell2.innerHTML = novaFuncao;
                 cell3.innerHTML = '<button type="button" class="btn btn-danger" onclick="removerLinha(this)">Remover</button>';
 
+                // Atualizar o campo oculto com os dados da tabela
+                document.getElementById("tabelaNecessidadePessoalHidden").value = JSON.stringify(obterDadosTabela());
+                
                 // Limpar campos de entrada
                 document.getElementById("novoCargo").value = "";
                 document.getElementById("novaFuncao").value = "";
@@ -82,6 +86,26 @@
         function removerLinha(button) {
             var row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
+
+            // Atualizar o campo oculto com os dados da tabela após remover uma linha
+            document.getElementById("tabelaNecessidadePessoalHidden").value = JSON.stringify(obterDadosTabela());
+        }
+
+        function obterDadosTabela() {
+            var tabela = document.getElementById("tabelaNecessidadePessoal");
+            var dadosTabela = [];
+
+            for (var i = 1; i < tabela.rows.length - 1; i++) {
+                var cargo = tabela.rows[i].cells[0].innerHTML;
+                var qualificacoes = tabela.rows[i].cells[1].innerHTML;
+
+                dadosTabela.push({
+                    'cargo': cargo,
+                    'qualificacoes': qualificacoes
+                });
+            }
+
+            return dadosTabela;
         }
     </script>
 </body>

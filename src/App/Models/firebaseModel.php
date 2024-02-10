@@ -110,6 +110,26 @@ class FirebaseModel
         return json_decode($response->getBody(),true);
     }
 
+    //envio do plano operacional
+
+    public function send_Operacion($data)
+    {
+        $response = $this->httpClient->post("$this->firebaseURL/Operacional.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
+
+    // Envio do Investimento Fixo
+    public function send_Investimento_fixo($data)
+    {
+        $response = $this->httpClient->post("$this->firebaseURL/Investimento-Fixo.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
 
     //sessão do usuário
     public function createSession($userId)

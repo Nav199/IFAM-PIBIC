@@ -1,0 +1,18 @@
+body {
+    background-color: #123456;
+    /* Substitua pelo código de cor desejado */
+}
+
+.login-form label {
+    color: white;
+    /* Defina a cor do label */
+}
+
+.login-form .form-control {
+    background-color: transparent;
+    /* Defina a cor de fundo transparente */
+    border-color: white;
+    /* Defina a cor da borda */
+    color: white;
+    /* Defina a cor do texto */
+}

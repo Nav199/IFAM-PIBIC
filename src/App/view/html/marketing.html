@@ -5,40 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Formulário de Negócios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="/src/App/view/js/plano_marketing.js"></script>
     <style>
         body {
             padding: 20px;
         }
     </style>
 </head>
-<body>
-
+<body style="background-color: rgba(21, 25, 41, 1);">
+    <nav class="navbar navbar-expand-md navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h1 class="m-0">
+              <img class="d-block w-60" src="/src/App/view/img/logo.png" alt="Logo da loja">
+            </h1>
+          </a>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Configurações</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 <div class="container">
-    <h2>Formulário de Negócios</h2>
+    <h3 class="text-center text-white">Plano de Marketing</h3>
     <form>
+    
+        <!-- Campos originais -->
         <div class="mb-3">
-            <label for="produtoServico" class="form-label">Principais Produtos e Serviços</label>
-            <input type="text" class="form-control" id="produtoServico" placeholder="Digite os produtos e serviços">
+            <div class="mb-5">
+                <table id="tabelaNecessidadePessoal" class="table table-dark table-striped-columns text-center">
+                    <tr>
+                        <td>Principais Produtos e Serviços</td>
+                        <td>Ações</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" id="novoProduto"></td>
+                        <td><button type="button" class="btn btn-success" onclick="adicionar()">Adicionar</button></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="preco" class="form-label">Preço</label>
-            <input type="text" class="form-control" id="preco" placeholder="Digite o preço">
+        <div class="container text-center">
+            <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+            <div class="row">
+              <div class="col-md-8 text-white">
+                <label for="estrategiasPromocionais" class="form-label">Estratégias Promocionais</label>
+                <textarea class="form-control custom-input" id="visaoEmpresa" name="visaoEmpresa" placeholder="Visão da Empresa"></textarea>
+              </div>
+              <div class="col-6 col-md-4 text-white">
+                <label for="preco" class="form-label">Preço</label>
+                <input type="text" class="form-control" id="preco" placeholder="Digite o preço">
+              </div>
+    
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="estrategiasPromocionais" class="form-label">Estratégias Promocionais</label>
-            <input type="text" class="form-control" id="estrategiasPromocionais" placeholder="Digite as estratégias promocionais">
+
+        <div class="container text-center">
+            <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+            <div class="row">
+              <div class="col-md-8 pt-4 text-white">
+                <label for="estruturaComercializacao" class="form-label">Estrutura de Comercialização</label>
+                <textarea class="form-control custom-input" id="visaoEmpresa" name="visaoEmpresa" placeholder="Visão da Empresa"></textarea>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="estruturaComercializacao" class="form-label">Estrutura de Comercialização</label>
-            <input type="text" class="form-control" id="estruturaComercializacao" placeholder="Digite a estrutura de comercialização">
+
+        <div class="container text-center pt-4">
+            <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+            <div class="row">
+              <div class="col-6 col-md-4 text-white">
+                <label for="cep" class="form-label">CEP</label>
+                <input type="text" class="form-control" id="cep" placeholder="Digite o CEP" onblur="buscarCep()">
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-4 text-white">
+                <label for="rua" class="form-label">Rua</label>
+                <input type="text" class="form-control" id="rua" placeholder="Rua">
+                <label for="cidade" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="cidade" placeholder="Cidade">
+                <label for="estado" class="form-label">Estado</label>
+                <input type="text" class="form-control" id="estado" placeholder="Estado">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="endereco" placeholder="Endereço">
+                </div>
+                
+            </div>
+
         </div>
-        <div class="mb-3">
-            <label for="localizacaoNegocio" class="form-label">Localização do Negócio</label>
-            <input type="text" class="form-control" id="localizacaoNegocio" placeholder="Digite a localização do negócio">
-        </div>
+        <!-- Campos relacionados à localização -->
+        
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
 </div>
+
+<script>
+    function buscarCep() {
+        var cep = document.getElementById('cep').value;
+
+        // Verificar se o CEP possui o formato correto
+        if (/^\d{5}-\d{3}$/.test(cep)) {
+            // Realizar a requisição à API ViaCEP
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => preencherCamposEndereco(data))
+                .catch(error => console.error('Erro ao buscar o CEP:', error));
+        } else {
+            console.error('Formato de CEP inválido');
+        }
+    }
+
+    function preencherCamposEndereco(data) {
+        document.getElementById('rua').value = data.logradouro || '';
+        document.getElementById('cidade').value = data.localidade || '';
+        document.getElementById('estado').value = data.uf || '';
+        document.getElementById('endereco').value = data.bairro || '';
+        document.getElementById('numero').value = data.numero || '';
+     
+    }
+</script>
 
 </body>
 </html>

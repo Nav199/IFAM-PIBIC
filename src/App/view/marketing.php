@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             <label for="preco" class="form-label">Preço</label>
-            <input type="text" class="form-control" id="preco" name="preco" placeholder="Digite o preço">
+            <input type="number" class="form-control" id="preco" name="preco" placeholder="Digite o preço">
         </div>
         <div class="mb-3">
             <label for="estrategiasPromocionais" class="form-label">Estratégias Promocionais</label>

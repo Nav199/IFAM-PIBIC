@@ -28,7 +28,7 @@ class LoginController
             // Se o login falhar, redirecionar de volta para a página de login
             echo 'Redirecionando para login';
             header('Location:  /login');
-            exit(); // Certifique-se de usar exit() após o redirecionamento
+            exit(); 
         }
         
     }

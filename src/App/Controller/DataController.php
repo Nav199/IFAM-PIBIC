@@ -21,13 +21,17 @@ class DataController
         $email = $_POST['email'] ?? '';
         $senha = $_POST['senha'] ?? '';
     
+        //verifica se o cpf esta correto
+
+
+        //verifica se os dados preenchidos já foram cadastrados
         if (!empty($nome) && !empty($CPF) && !empty($email) && !empty($senha)) {
             if ($this->firebase->getUserId($email) || $this->firebase->getUserId($CPF)) {
                 echo '<script>alert("Email e CPF já cadastrados.");</script>';
-                require_once __DIR__.'/../view/cadastro.php';
+                header('Location: /');
                 exit;
             }
-    
+
             // Use password_hash para armazenar a senha com segurança
             //$hashedSenha = password_hash($senha, PASSWORD_DEFAULT);
     

@@ -26,7 +26,14 @@ return function (RouteCollector $r) {
 
     $r->addRoute('GET','/marketing',['App\Controller\Marketing_Controller','index']);
     $r->addRoute('POST','/marketing',['App\Controller\Marketing_Controller','store']);
+
+    //rota de operacional
+    $r->addRoute('GET','/Operacional',['App\Controller\OperacionalController','index']);
+    $r->addRoute('POST','/Operacional',['App\Controller\OperacionalController','store']);
     //rota de investimento fixo
+
+    $r->addRoute('GET','/Investimento-Fixo',['App\Controller\Inves_fixo_Controller','index']);
+    $r->addRoute('POST','/Investimento-Fixo',['App\Controller\Inves_fixo_Controller','store']);
 
     //rota do login
     $r->addRoute('GET', '/login', ['App\Controller\LoginController', 'index']);
