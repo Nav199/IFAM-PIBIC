@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/faturamento.css">
+    <title>Faturamento</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <h1 class="m-0">
+                    <img class="d-block w-60" src="/src/App/view/img/logo.png" alt="Logo da loja">
+                </h1>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Configurações</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h2 class="text-center pt-2 mt-2 text-white">Faturamento</h2>
+    <div class="container mt-5">
+        <table class="table table-dark table-striped-columns text-center" id="Tabela_01">
+            <thead>
+                <tr>
+                    <th><button type="button" class="btn btn-light" style="text-align: center;"
+                            onclick="adicionarLinha()">+</button></th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Faturamento Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-data">
+                    <td><button type="button" class="btn btn-danger" onclick="deletarLinha(this)">Deleta</button></td>
+                    <td><input type="number" name="quantidade[]" id="quantidade_1" oninput="calcularTotal(1)"></td>
+                    <td><input type="number" name="valor_unitario[]" id="valor_unitario_1"
+                            oninput="calcularTotal(1)"></td>
+                    <td><input type="number" name="total[]" id="total_1" readonly></td>
+                </tr>
+            </tbody>
+            <tr class="table-subtotal">
+                <th>Total</th>
+                <td><input type="number" name="total_quantidade" id="subtotal_quantidade" readonly></td>
+                <td><input type="number" name="total_preco" id="subtotal_preco" readonly></td>
+                <td><input type="number" name="subtotal" id="subtotal" readonly></td>
+            </tr>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <table class="table table-dark table-striped-columns text-center" id="Id_projecao">
+            <thead>
+                <tr>
+                    <th>Projeção de Crescimento</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-data">
+                    <td>% fixo de crescimento </td>
+                    <td><input type="number" id="porcentagem" onchange="calcularProjecaoCrescimento()"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-5 text-center"> <!-- Adiciona classe "text-center" para centralizar horizontalmente -->
+      <div id="grafico_barras"></div> <!-- Adiciona div para envolver o gráfico -->
+  </div>
+  
+    <button type="submit" class="btn btn-primary mx-auto d-block">Enviar</button>
+    <script src="../js/faturamento.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</body>
+
+</html>

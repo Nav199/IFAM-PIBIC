@@ -7,10 +7,7 @@ body{
 }
 
 
-/*
-*/
-
 .navbar-brand img {
-    max-width: 150px; /* Ajuste o tamanho máximo conforme necessário */
-    width: 100%; /* A imagem ocupará toda a largura do elemento pai */
+    max-width: 150px;
+    width: 100%; 
 }

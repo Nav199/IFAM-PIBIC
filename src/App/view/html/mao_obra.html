@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/mao_obra.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h1 class="m-0">
+              <img class="d-block w-60" src="/src/App/view/img/logo.png" alt="Logo da loja">
+            </h1>
+          </a>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Configurações</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <form action="" method="post">
+  <table class="table table-dark table-striped-columns text-center" id="Tabela_01">
+    <thead>
+      <tr>
+        <th><button type="button" class="btn btn-dark" onclick="adicionarLinha(1)">Adicionar</button></th>
+        <th>Função</th>
+        <th>N° Empregados</th>
+        <th>Salário Mensal</th>
+        <th>Subtotal</th>
+        <th>(%) Encargos Sociais</th>
+        <th>Encargos Sociais</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-data">
+        <td><button type="button" class="btn btn-danger" onclick="deletarLinha(this)">Remover</button></td>
+        <td><input type="text" name="funcao[]" class="form-control form-control-sm"></td>
+        <td><input type="number" name="N_empre[]" class="form-control form-control-sm" oninput="calcularSubtotal(this)"></td>
+        <td><input type="number" name="salario_1[]" class="form-control form-control-sm" oninput="calcularSubtotal(this)"></td>
+        <td><input type="number" name="subtotal[]" class="form-control form-control-sm" readonly></td>
+        <td><input type="number" name="encar_socio_[]" class="form-control form-control-sm" oninput="calcularSubtotal(this)"></td>
+        <td><input type="number" name="calcu_encarg[]" class="form-control form-control-sm" readonly></td>
+        <td><input type="number" name="total[]" class="form-control form-control-sm" readonly></td>
+      </tr>
+      <!-- Adicione mais linhas aqui, se necessário -->
+      <tr class="table-subtotal">
+        <th>TOTAL</th>
+        <td></td>
+        <td><input type="number" id="total_empre" class="form-control form-control-sm"></td>
+        <td></td>
+        <td><input type="number" id="Sub_total" class="form-control form-control-sm"></td>
+        <td></td>
+        <td><input type="number" id="total_encargos" class="form-control form-control-sm"></td>
+        <td><input type="number" id="subtotal" class="form-control form-control-sm" readonly></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+    <button type="submit" class="btn btn-primary mx-auto d-block">Enviar</button>
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+gsxdKjOMf8gk5zSWZXIhbpG2j7fRV3A/KJh5OJ" crossorigin="anonymous"></script>
+  <script src="../js/mao_obra.js"></script>
+</body>
+</html>
