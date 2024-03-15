@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custo Unitário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <h3 class="text-center">Custo Unitário</h3>    
+    <table class="table table-dark table-striped-columns text-center" id="Tabela_01">
+        <thead>
+            <tr>
+                <th><button type="button" class="btn btn-light" style="text-align: center;" onclick="adicionarLinha()" title="Adicionar Produto">+</button></th>
+                <th>Nome do produto</th>
+                <th>Materiais / Insumos usados</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-data">
+                <td><button type="button" class="btn btn-danger" onclick="deletarLinha(this)">Deleta</button></td>
+                <td><input type="text" id="Nome_produto" name="Nome_produto"></td>
+                <td><input type="text" id="Materiais" name="Materiai"></td>
+                <td><input type="number" id="Quantidade" name="Quantidade" onchange="calcularTotal(this)"></td>
+                <td><input type="number" id="Preco" name="Preco" onchange="calcularTotal(this)"></td>
+                <td><input type="number" id="total" name="total"></td>
+            </tr>
+            <tr class="table-subtotal">
+                <th>Total</th>
+                <td><input type="number" name="total_preco" id="subtotal_preco" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function adicionarLinha() {
+            var tabela = document.getElementById('Tabela_01').getElementsByTagName('tbody')[0];
+            var novaLinha = tabela.insertRow(-1);
+            var colunaBotao = novaLinha.insertCell(0);
+            var colunaNome = novaLinha.insertCell(1);
+            var colunaMateriais = novaLinha.insertCell(2);
+            var colunaQuantidade = novaLinha.insertCell(3);
+            var colunaPreco = novaLinha.insertCell(4);
+            var colunaTotal = novaLinha.insertCell(5);
+
+            colunaBotao.innerHTML = '<button type="button" class="btn btn-danger" onclick="deletarLinha(this)">Deleta</button>';
+            colunaNome.innerHTML = '<input type="text" name="Nome_produto">';
+            colunaMateriais.innerHTML = '<input type="text" name="Materiai">';
+            colunaQuantidade.innerHTML = '<input type="number" name="Quantidade" onchange="calcularTotal(this)">';
+            colunaPreco.innerHTML = '<input type="number" name="Preco" onchange="calcularTotal(this)">';
+            colunaTotal.innerHTML = '<input type="number" name="total">';
+        }
+
+        function deletarLinha(botao) {
+            var linha = botao.parentNode.parentNode;
+            linha.parentNode.removeChild(linha);
+            calcularSubtotal();
+        }
+
+        function calcularTotal(input) {
+            var linha = input.parentNode.parentNode;
+            var quantidade = parseFloat(linha.querySelector('[name="Quantidade"]').value);
+            var preco = parseFloat(linha.querySelector('[name="Preco"]').value);
+            var total = quantidade * preco;
+            linha.querySelector('[name="total"]').value = total.toFixed(2);
+            calcularSubtotal();
+        }
+
+        function calcularSubtotal() {
+            var subtotal = 0;
+            var totais = document.getElementsByName('total');
+            for (var i = 0; i < totais.length; i++) {
+                subtotal += parseFloat(totais[i].value);
+            }
+            document.getElementById('subtotal_preco').value = subtotal.toFixed(2);
+        }
+    </script>
+</body>
+</html>
